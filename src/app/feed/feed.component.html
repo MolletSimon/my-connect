@@ -1,0 +1,18 @@
+<div class="publish">
+    <form (ngSubmit)="savePost(f)" #f="ngForm">
+        <textarea required class="textarea" placeholder="Publier quelque chose.." name="content" ngModel></textarea>
+        <div class="options">
+            <div class="select">
+                <select ngModel name="group" required>
+                    <option hidden value="" disabled selected>Sélectionnez un groupe</option>
+                    <option *ngFor="let g of groups" [ngValue]="g">{{g.name}}</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button class="button is-info is-light" type="submit" [disabled]="f.invalid">Publier</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<app-posts [post]="post"></app-posts>

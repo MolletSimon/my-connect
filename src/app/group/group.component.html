@@ -1,0 +1,66 @@
+<h4 class="text-info">{{user.firstname}}, vous faites partie des groupes suivants</h4>
+<div class="card" *ngFor="let group of groups" >
+    <progress class="progress is-small is-danger" max="100" *ngIf="progress" ></progress>
+    <header class="card-header">
+        <div class="card-header-title">
+            {{group.name}}
+        </div>
+        <div class="responsable">
+            <span class="tag">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
+        </div>
+        <div class="buttons">
+            <button class="button is-light is-danger" (click)="delete(group._id)">Supprimer</button>
+            <button class="button is-light is-info">Inviter</button>
+        </div>
+    </header>
+</div>
+
+<button class="button is-large is-fullwidth is-primary" id="add-btn" (click)="addGroup()">Ajouter un groupe</button>
+
+<div class="modal" id="modal-add-group">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <form>
+            <header class="modal-card-head">
+                <p class="modal-card-title">Ajouter un groupe</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+                <label class="label">Nom du groupe</label>
+                <div class="control has-icons-left has-icons-right">
+                    <input class="input" type="text" placeholder="Nom du groupe">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-users"></i>
+                    </span>
+                </div>
+                <hr class="solid">
+                <span class="tag is-primary is-light">Responsable</span>
+                <div class="responsable-add">
+                    <div class="field">
+                        <label class="label">Nom</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input class="input" type="text" placeholder="Nom du responsable">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Prénom</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input class="input" type="text" placeholder="Prénom du responsable">
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-primary">Ajouter</button>
+                <button class="button" (click)="closeModal('modal-add-group')">Annuler</button>
+            </footer>
+        </form>
+    </div>
+</div>

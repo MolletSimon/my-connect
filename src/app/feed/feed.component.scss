@@ -1,0 +1,19 @@
+.publish {
+    margin: 0 20rem 0 20rem;
+}
+
+.options {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+
+    div {
+        margin-left: 1rem;
+    }
+}
+
+.select {
+    select {
+        width: 20rem;
+    }
+}

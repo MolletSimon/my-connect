@@ -1,0 +1,41 @@
+@import "../styles/main.scss";
+
+.card {
+    margin: 0 10rem 1rem 10rem;
+
+    .card-header {
+        padding: 1rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+            ". . .";
+    }
+}
+
+.responsable {
+    align-items: center;
+    color: #363636;
+    display: flex;
+    flex-grow: 1;
+    padding: .75rem 1rem;
+    text-align: center;
+    font-style: italic;
+}
+
+.buttons {
+    justify-content: flex-end;
+}
+
+.text-info {
+    color: $info;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+#add-btn {
+    margin: 1.5rem 6rem 0 6rem;
+    width: auto;
+}

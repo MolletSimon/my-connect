@@ -1,0 +1,25 @@
+.list {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.header {
+    padding: 3rem;
+}
+
+.active {
+    color: rgb(101, 172, 248);
+    padding: 1rem;
+    border-bottom: solid rgb(101, 172, 248);
+}
+
+a {
+    color: black;
+    font-weight: bold;
+}
+
+.header {
+    border-bottom: solid grey;
+    margin: 0 3rem 3rem 3rem;
+}

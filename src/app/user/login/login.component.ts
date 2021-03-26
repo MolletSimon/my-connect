@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.mail && this.password)
       this._authService.login(this.mail, this.password).subscribe(result => {
+        console.log(result)
         sessionStorage.setItem("CurrentUser", JSON.stringify(result));
         this._router.navigate(['feed'])
         location.reload()

@@ -7,11 +7,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   { path: '', redirectTo: 'feed', pathMatch: 'full'},
-  { path: 'agenda', component: AppComponent },
   { path: 'drive', component: AppComponent },
   { path: 'feed', loadChildren: () => import('./feed/feed.module').then(m => m.FeedModule) },
   { path: 'login', component: LoginComponent},
-  { path: 'group', loadChildren: () => import('./group/group.module').then(m => m.GroupModule) }
+  { path: 'group', loadChildren: () => import('./group/group.module').then(m => m.GroupModule) },
+  { path: 'agenda', loadChildren: () => import('./agenda/agenda.module').then(m => m.AgendaModule) }
 ];
 
 @NgModule({

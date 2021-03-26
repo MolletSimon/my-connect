@@ -4,6 +4,7 @@ import { GroupService } from './../services/group.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-group',
@@ -56,6 +57,17 @@ export class GroupComponent implements OnInit {
 
   closeModal(id: string) {
     document.getElementById(id).classList.remove("is-active");
+  }
+
+  saveGroup(f: NgForm) {
+    this.progress = true;
+    this._groupService.addGroup(f.value)
+      .subscribe(result => {
+        this.progress = false;
+        this.closeModal('modal-add-group');
+        this.getGroups();
+        f.reset();
+      })
   }
 
 }

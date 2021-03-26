@@ -18,4 +18,17 @@ export class GroupService {
   deleteGroup(id: string): Observable<any> {
     return this._httpService.delete<any>(`${this._apiService.apiUrl}group/${id}`, this._apiService.httpOptions);
   }
+
+  addGroup(form: any): Observable<any> {
+    let body = {
+      "name": form.groupName,
+      "responsable": {
+        "lastname": form.responsableName,
+        "firstname": form.responsableFirstname,
+        "phone": form.responsablePhone
+      }
+    };
+
+    return this._httpService.post(`${this._apiService.apiUrl}group/add`, body, this._apiService.httpOptions);
+  }
 }

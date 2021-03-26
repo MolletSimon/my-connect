@@ -15,20 +15,24 @@
     </header>
 </div>
 
-<button class="button is-large is-fullwidth is-primary" id="add-btn" (click)="addGroup()">Ajouter un groupe</button>
+<div id="add-btn-div">
+    <button class="button is-large is-fullwidth is-primary" id="add-btn" (click)="addGroup()">Ajouter un groupe</button>
+</div>
+
 
 <div class="modal" id="modal-add-group">
     <div class="modal-background"></div>
     <div class="modal-card">
-        <form>
+        <form (ngSubmit)="saveGroup(f)" #f="ngForm">
             <header class="modal-card-head">
                 <p class="modal-card-title">Ajouter un groupe</p>
-                <button class="delete" aria-label="close"></button>
+                <button class="delete" aria-label="close" type="reset" (click)="closeModal('modal-add-group')"></button>
             </header>
+            <progress class="progress is-small is-primary" max="100" *ngIf="progress" ></progress>
             <section class="modal-card-body">
                 <label class="label">Nom du groupe</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input" type="text" placeholder="Nom du groupe">
+                    <input class="input" type="text" placeholder="Nom du groupe" ngModel name="groupName" required>
                     <span class="icon is-small is-left">
                         <i class="fas fa-users"></i>
                     </span>
@@ -39,7 +43,7 @@
                     <div class="field">
                         <label class="label">Nom</label>
                         <div class="control has-icons-left has-icons-right">
-                            <input class="input" type="text" placeholder="Nom du responsable">
+                            <input class="input" type="text" placeholder="Nom du responsable" ngModel name="responsableName" required>
                             <span class="icon is-small is-left">
                                 <i class="fas fa-user"></i>
                             </span>
@@ -49,17 +53,27 @@
                     <div class="field">
                         <label class="label">Prénom</label>
                         <div class="control has-icons-left has-icons-right">
-                            <input class="input" type="text" placeholder="Prénom du responsable">
+                            <input class="input" type="text" placeholder="Prénom du responsable" ngModel name="responsableFirstname" required>
                             <span class="icon is-small is-left">
                                 <i class="fas fa-user"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Téléphone</label>
+                        <div class="control has-icons-left has-icons-right">
+                            <input class="input" type="tel" placeholder="Tel du responsable" ngModel name="responsablePhone" required>
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-phone"></i>
                             </span>
                         </div>
                     </div>
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-primary">Ajouter</button>
-                <button class="button" (click)="closeModal('modal-add-group')">Annuler</button>
+                <button class="button is-primary" type="submit" [disabled]="f.invalid">Ajouter</button>
+                <button class="button" (click)="closeModal('modal-add-group')" type="reset">Annuler</button>
             </footer>
         </form>
     </div>

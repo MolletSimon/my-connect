@@ -51,7 +51,8 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css"
             ],
             "scripts": []
           },
@@ -115,7 +116,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css"
             ],
             "scripts": []
           }

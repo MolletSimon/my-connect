@@ -1,81 +1,78 @@
+import { GroupService } from './../services/group.service';
+import { Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import{ jqxSchedulerComponent } from 'jqwidgets-ng/jqxscheduler'
-
+import { EventSettingsModel, PopupOpenEventArgs } from '@syncfusion/ej2-angular-schedule';
+import { View } from '@syncfusion/ej2-schedule';
+import { createElement } from '@syncfusion/ej2-base';
+import { DropDownList } from '@syncfusion/ej2-dropdowns';
+import { Group } from '../model/group';
 @Component({
   selector: 'app-agenda',
   templateUrl: './agenda.component.html',
   styleUrls: ['./agenda.component.scss']
 })
 export class AgendaComponent implements OnInit {
+    public groups: Group[];
+    public setView: View = 'Month';
+    public setDate: Date = new Date();
+    public eventObject: EventSettingsModel = {
+        dataSource: [{
+            Subject: "Test",
+            StartTime: new Date(),
+            EndTime: new Date(),
+            IsAllDay: false,
+            RecurrenceRule: "FREQ=DAILY; INTERVAL=1; COUNT=10",
+            IsReadOnly: false,
 
-  constructor() { }
+        }]
+    }
+    
+  constructor(
+      private _groupService: GroupService
+  ) { }
 
   ngOnInit(): void {
+
   }
 
-  generateAppointments(): any
-    {
-        let appointments = new Array();
- 
-        let appointment1 = {
-            id: "id1", description: "George brings projector for presentations.", location: "", subject: "Quarterly Project Review Meeting", calendar: "Room 1",
-            start: new Date(2016, 10, 23, 9, 0, 0),
-            end: new Date(2016, 10, 23, 16, 0, 0)
-        };
-        let appointment2 = {
-            id: "id2", description: "",
-            location: "", subject: "IT Group Mtg.", calendar: "Room 2",
-            start: new Date(2016, 10, 24, 10, 0, 0),
-            end: new Date(2016, 10, 24, 15, 0, 0)
-        };
- 
-        appointments.push(appointment1);
-        appointments.push(appointment2);
- 
-        return appointments;
-    }
- 
-    source: any =
-    {
-        dataType: "array",
-        dataFields: [
-            { name: 'id', type: 'string' },
-            { name: 'description', type: 'string' },
-            { name: 'location', type: 'string' },
-            { name: 'subject', type: 'string' },
-            { name: 'calendar', type: 'string' },
-            { name: 'start', type: 'date' },
-            { name: 'end', type: 'date' }
-        ],
-        id: 'id',
-        localData: this.generateAppointments()
-    }
- 
-    dataAdapter: any = new jqx.dataAdapter(this.source);
-    date: any = new jqx.date(2016, 11, 23);
- 
-    appointmentDataFields: any =
-    {
-        from: "start",
-        to: "end",
-        id: "id",
-        description: "description",
-        location: "location",
-        subject: "subject",
-        resourceId: "calendar"
-    };
- 
-    resources: any =
-    {
-        colorScheme: "scheme05",
-        dataField: "calendar",
-        source: new jqx.dataAdapter(this.source)
-    };
- 
-    views: string[] =
-    [
-        'weekView',
-        'monthView'
-    ]; 
+  getGroups() {
+      this._groupService.getGroups()
+        .subscribe(group => {
 
+        })
+  }
+
+  actionComplete(appointment) {
+      console.log(appointment)
+  }
+
+  onPopupOpen(args: PopupOpenEventArgs): void {
+    if (args.type === 'Editor') {
+        // Create required custom elements in initial time
+        if (!args.element.querySelector('.custom-field-row')) {
+            let row: HTMLElement = createElement('div', { className: 'custom-field-row' });
+            let formElement: HTMLElement = args.element.querySelector('.e-schedule-form');
+            formElement.firstChild.insertBefore(row, args.element.querySelector('.e-title-location-row'));
+            let container: HTMLElement = createElement('div', { className: 'custom-field-container' });
+            let inputEle: HTMLInputElement = createElement('input', {
+                className: 'e-field', attrs: { name: 'Groupe concerné' }
+            }) as HTMLInputElement;
+            container.appendChild(inputEle);
+            row.appendChild(container);
+            let dropDownList: DropDownList = new DropDownList({
+                dataSource: [
+                    { text: 'Communication', value: 'public-event' },
+                    { text: 'Prédication', value: 'maintenance' },
+                    { text: 'Louange', value: 'commercial-event' },
+                    { text: 'Ménage', value: 'family-event' }
+                ],
+                fields: { text: 'text', value: 'value' },
+                value: (<{ [key: string]: Object }>(args.data)).EventType as string,
+                floatLabelType: 'Always', placeholder: 'Groupe concerné'
+            });
+            dropDownList.appendTo(inputEle);
+            inputEle.setAttribute('name', 'group');
+        }
+    }
+  }
 }

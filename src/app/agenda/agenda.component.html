@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" *ngIf="eventObject" >
     <ejs-schedule
         height="600px"
         [currentView]="setView"
@@ -7,5 +7,7 @@
         (actionComplete)="actionComplete($event)"
         (popupOpen)="onPopupOpen($event)"
     > 
-</ejs-schedule>
+    </ejs-schedule>
 </div>
+
+<progress class="progress is-primary" [value]="progress" max="100" *ngIf="progress < 100" >{{progress}}%</progress>

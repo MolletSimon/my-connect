@@ -1,12 +1,12 @@
 export interface Appointment {
     _id: string;
-    description: string;
-    subject: string;
-    endTime: Date;
-    isAllDay: boolean;
-    location: string;
-    recurrenceRule: string;
-    startTime: Date;
+    Description: string;
+    Subject: string;
+    EndTime: Date;
+    IsAllDay: boolean;
+    Location: string;
+    RecurrenceRule: string;
+    StartTime: Date;
     group: {
         id: string;
         color: string;

@@ -20,4 +20,9 @@ export class HeaderComponent implements OnInit {
     this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
   }
 
+  disconnect() {
+    sessionStorage.removeItem("CurrentUser");
+    location.reload();
+  }
+
 }

@@ -1,9 +1,10 @@
+import { AppModule } from './../app.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AgendaRoutingModule } from './agenda-routing.module';
 import { AgendaComponent } from './agenda.component';
-import { jqxSchedulerModule } from 'jqwidgets-ng/jqxscheduler';
+import { ScheduleModule, RecurrenceEditorModule, AgendaService, DayService, MonthAgendaService, MonthService, WeekService, WorkWeekService, DragAndDropService, ResizeService } from '@syncfusion/ej2-angular-schedule';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { jqxSchedulerModule } from 'jqwidgets-ng/jqxscheduler';
   imports: [
     CommonModule,
     AgendaRoutingModule,
-    jqxSchedulerModule
-  ]
+    ScheduleModule, RecurrenceEditorModule
+  ],
+  providers: [DayService, WeekService, WorkWeekService, MonthService, AgendaService, MonthAgendaService, DragAndDropService, ResizeService]
 })
 export class AgendaModule { }

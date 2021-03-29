@@ -4,5 +4,5 @@ export interface User {
     firstname: string;
     lastname: string;
     groups: Group[];
-    isSuperAdmin: boolean;
+    isSuperadmin: boolean;
 }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { GroupRoutingModule } from './group-routing.module';
 import { GroupComponent } from './group.component';
 import { FormsModule } from '@angular/forms';
+import { ColorCircleModule } from 'ngx-color/circle';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     GroupRoutingModule,
-    FormsModule
+    FormsModule,
+    ColorCircleModule
   ]
 })
 export class GroupModule { }

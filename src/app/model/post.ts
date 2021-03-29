@@ -9,6 +9,7 @@ export interface Post {
     group: {
         id: string;
         name: string;
+        color: string;
     }
     date: Date;
 }

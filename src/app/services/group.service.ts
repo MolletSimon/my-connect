@@ -22,6 +22,7 @@ export class GroupService {
   addGroup(form: any): Observable<any> {
     let body = {
       "name": form.groupName,
+      "color": form.color,
       "responsable": {
         "lastname": form.responsableName,
         "firstname": form.responsableFirstname,

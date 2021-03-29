@@ -1,4 +1,4 @@
-<div class="content" *ngIf="eventObject" >
+<div class="content fade-in" *ngIf="eventObject" >
     <ejs-schedule
         height="600px"
         [currentView]="setView"
@@ -10,4 +10,4 @@
     </ejs-schedule>
 </div>
 
-<progress class="progress is-primary" [value]="progress" max="100" *ngIf="progress < 100" >{{progress}}%</progress>
+<progress class="progress is-primary fade-in" [value]="progress" max="100" *ngIf="progress < 100" >{{progress}}%</progress>

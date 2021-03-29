@@ -15,6 +15,8 @@ export class GroupComponent implements OnInit {
   groups: Group[];
   user: User;
   progress = false;
+  color: string;
+
   
   constructor(
     private _groupService: GroupService,
@@ -60,7 +62,12 @@ export class GroupComponent implements OnInit {
   }
 
   saveGroup(f: NgForm) {
+    if (!this.color) {
+      this._toastr.error("Vous devez saisir une couleur pour le groupe");
+      return;
+    }
     this.progress = true;
+    f.value.color = this.color;
     this._groupService.addGroup(f.value)
       .subscribe(result => {
         this.progress = false;
@@ -70,4 +77,20 @@ export class GroupComponent implements OnInit {
       })
   }
 
+  changeComplete(color) {
+    this.color = color.color.hex;
+  }
+
+  // CSS FUNCTION
+  addAlpha(color: string, opacity: number): string {
+    // coerce values so ti is between 0 and 1.
+    const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
+    return color + _opacity.toString(16).toUpperCase();
+  }
+
+  cardStyle(group: Group) {
+    return {
+      'background-color': this.addAlpha(group.color, 0.4)
+    }
+  }
 }

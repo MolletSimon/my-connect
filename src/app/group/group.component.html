@@ -1,26 +1,26 @@
 <h4 class="text-info">{{user.firstname}}, vous faites partie des groupes suivants</h4>
-<div class="card" *ngFor="let group of groups" >
+<div class="card fade-in" *ngFor="let group of groups" >
     <progress class="progress is-small is-danger" max="100" *ngIf="progress" ></progress>
-    <header class="card-header" [ngStyle]="{'background-color': 'rgba(red(' + group.color +'), green(' + group.color + '), blue(' + group.color + '), 0.2)'}">
+    <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">
         <div class="card-header-title">
             {{group.name}}
         </div>
         <div class="responsable">
-            <span class="tag">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
+            <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
         </div>
         <div class="buttons">
-            <button class="button is-light is-danger" (click)="delete(group._id)">Supprimer</button>
-            <button class="button is-light is-info">Inviter</button>
+            <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="delete(group._id)">Supprimer</button>
+            <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">Inviter</button>
         </div>
     </header>
 </div>
 
-<div id="add-btn-div">
+<div id="add-btn-div" class="fade-in">
     <button class="button is-large is-fullwidth is-primary" id="add-btn" (click)="addGroup()">Ajouter un groupe</button>
 </div>
 
 
-<div class="modal" id="modal-add-group">
+<div class="modal fade-in" id="modal-add-group">
     <div class="modal-background"></div>
     <div class="modal-card">
         <form (ngSubmit)="saveGroup(f)" #f="ngForm">
@@ -31,11 +31,15 @@
             <progress class="progress is-small is-primary" max="100" *ngIf="progress" ></progress>
             <section class="modal-card-body">
                 <label class="label">Nom du groupe</label>
-                <div class="control has-icons-left has-icons-right">
+                <div class="control has-icons-left has-icons-right" id="group-name">
                     <input class="input" type="text" placeholder="Nom du groupe" ngModel name="groupName" required>
                     <span class="icon is-small is-left">
                         <i class="fas fa-users"></i>
                     </span>
+                </div>
+                <label class="label">Couleur du groupe</label>
+                <div class="control">
+                    <color-circle (onChangeComplete)="changeComplete($event)" width="100%"></color-circle>
                 </div>
                 <hr class="solid">
                 <span class="tag is-primary is-light">Responsable</span>

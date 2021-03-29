@@ -9,7 +9,7 @@
             </div>
             <div class="media-content">
               <p class="title is-4">{{post.user.firstname}} {{post.user.lastname}}</p>
-              <p class="subtitle is-6">@{{post.group[0].name}}</p>
+              <p class="tag" [ngStyle]="{'background-color': addAlpha(post.group[0].color, 0.4)}">@{{post.group[0].name}}</p>
             </div>
           </div>
       

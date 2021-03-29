@@ -29,7 +29,8 @@ export class FeedService {
         },
         "group": [{
           "id": group._id,
-          "name": group.name
+          "name": group.name,
+          "color": group.color
         }]
       }, this._apiService.httpOptions
       )

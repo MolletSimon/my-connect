@@ -17,6 +17,7 @@ import { NgForm } from '@angular/forms';
 export class FeedComponent implements OnInit {
   user: User;
   groups: Group[];
+  groupsSelected: Group[] = [];
   post: Subject<any> = new Subject();
 
   constructor(
@@ -31,7 +32,12 @@ export class FeedComponent implements OnInit {
   }
 
   savePost(f: NgForm) {
-    this._feedService.publish(f.form.value["content"], this.user, f.form.value["group"] as Group)
+    if (this.groupsSelected.length > 0) {
+      this.groupsSelected;
+    } else {
+      this.groupsSelected.push(f.form.value["group"] as Group)
+    }
+    this._feedService.publish(f.form.value["content"], this.user, this.groupsSelected)
       .subscribe(result => {
         this.post.next();
         f.form.reset();
@@ -47,6 +53,14 @@ export class FeedComponent implements OnInit {
   getGroups() {
     this._groupService.getGroups()
       .subscribe(groups => this.groups = groups)
+  }
+
+  addGroup(group: Group) {
+    this.groupsSelected.push(group);
+  }
+
+  removeGroup(group: Group) {
+    this.groupsSelected = this.groupsSelected.filter(g => g._id != group._id);
   }
 
 }

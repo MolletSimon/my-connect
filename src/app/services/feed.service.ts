@@ -17,7 +17,16 @@ export class FeedService {
     return this._httpService.get<Post[]>(`${this._apiService.apiUrl}post/get`, this._apiService.httpOptions)
   }
 
-  publish(content, user: User, group: Group): Observable<Post> {
+  publish(content, user: User, groups: Group[]): Observable<Post> {
+    let group = [];
+    groups.forEach(g => {
+      group.push({
+        "id": g._id,
+        "name": g.name,
+        "color": g.color
+      })
+    });
+
     return this._httpService.post<Post>(`${this._apiService.apiUrl}post/publish`, 
       {
         "content": content, 
@@ -27,11 +36,7 @@ export class FeedService {
           "firstname": user.firstname,
           "id": user.id
         },
-        "group": [{
-          "id": group._id,
-          "name": group.name,
-          "color": group.color
-        }]
+        "group": group
       }, this._apiService.httpOptions
       )
   }

@@ -1,0 +1,96 @@
+<div class="filter">
+	<div class="select">
+		<select name="filter-group">
+			<option value="">Rechercher par groupe</option>
+			<option value="">Communication</option>
+			<option value="">Ménage</option>
+			<option value="">Louange</option>
+		</select>
+	</div>
+	<input type="text" placeholder="Rechercher.." class="input" (input)="search($event.target.value)">
+	<div class="add-btn">
+		<button class="button is-primary" type="button" (click)="openModal('modal-add-user')">Ajouter un utilisateur</button>
+	</div>
+</div>
+
+<div class="grid-container" *ngIf="users" >
+  <div class="card" *ngFor="let user of usersDisplayed" >
+    <header class="card-header">
+      <p class="card-header-title">
+        {{user.firstname}} {{user.lastname | uppercase}}
+      </p>
+    </header>
+    <div class="card-content">
+      <div class="content">
+		  <div class="phone">
+			  <p>{{user.phone}}</p>
+		  </div>
+        {{user.mail}}
+        <br>
+		<ng-container *ngIf="user.isSuperadmin">
+			<span class="tag">SUPER ADMINISTRATEUR</span>
+		</ng-container>
+        <span class="tag" *ngFor="let group of user.groups" ></span>
+      </div>
+    </div>
+    <footer class="card-footer">
+      <a class="card-footer-item">Ajouter des groupes</a>
+      <!-- <a href="#" class="card-footer-item">Edit</a> -->
+      <a class="card-footer-item red" (click)="deleteUser(user)">Supprimer</a>
+    </footer>
+  </div>
+</div>
+
+<div class="modal fade-in" id="modal-add-user">
+	<div class="modal-background"></div>
+	<form (ngSubmit)="saveForm(f)" #f="ngForm">
+		<div class="modal-card">
+		<header class="modal-card-head">
+			<p class="modal-card-title">Ajouter un utilisateur</p>
+			<button class="delete" aria-label="close" type="button" (click)="closeModal('modal-add-user')"></button>
+		</header>
+		<section class="modal-card-body">
+			<label class="label">Nom</label>
+			<div class="control has-icons-left has-icons-right" id="lastname">
+				<input class="input" type="text" placeholder="Nom de famille" ngModel name="lastname" required>
+				<span class="icon is-small is-left">
+					<i class="fas fa-user"></i>
+				</span>
+			</div>
+
+			<label class="label">Prénom</label>
+			<div class="control has-icons-left has-icons-right" id="firstname">
+				<input class="input" type="text" placeholder="Prénom" ngModel name="firstname" required>
+				<span class="icon is-small is-left">
+					<i class="fas fa-user"></i>
+				</span>
+			</div>
+
+			<label class="label">E-mail</label>
+			<div class="control has-icons-left has-icons-right" id="mail">
+				<input class="input" type="text" placeholder="E-mail" ngModel name="mail" required>
+				<span class="icon is-small is-left">
+					<i class="fas fa-at"></i>
+				</span>
+			</div>
+
+			<label class="label">Téléphone</label>
+			<div class="control has-icons-left has-icons-right" id="phone">
+				<input class="input" type="text" placeholder="Numéro de téléphone" ngModel name="phone" required>
+				<span class="icon is-small is-left">
+					<i class="fas fa-phone"></i>
+				</span>
+			</div>
+
+			<label class="checkbox">
+				<input type="checkbox" name="isSuperadmin" ngModel>
+				Cet utilisateur est super administrateur
+			</label>
+		</section>
+		<footer class="modal-card-foot">
+			<button class="button" (click)="closeModal('modal-add-user')">Annuler</button>
+			<button type="submit" class="button is-primary" [disabled]="f.invalid">Ajouter utilisateur</button>
+		</footer>
+		</div>
+	</form>
+  </div>

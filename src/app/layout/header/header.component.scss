@@ -14,15 +14,16 @@
     color: rgb(101, 172, 248);
     padding: 1rem;
     border-bottom: solid rgb(101, 172, 248);
-
-    :hover {
-        color: rgb(101, 172, 248);
-    }
 }
 
 a {
     color: black;
     font-weight: bold;
+
+    a:hover {
+        color: rgb(101, 172, 248);
+        border-bottom: solid rgb(101, 172, 248);
+    }
 }
 
 .header {

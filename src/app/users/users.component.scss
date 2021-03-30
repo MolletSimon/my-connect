@@ -1,0 +1,35 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        ". . .";
+    margin: 4rem;
+}
+.card-header-title {
+     justify-content: center !important;
+ }
+
+.phone {
+    display: flex;
+}
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 2rem;
+}
+
+.control {
+    margin-bottom: 1rem;
+}
+
+.card {
+    margin: 1rem;
+}
+
+.red {
+    color: rgb(210, 48, 48)
+}

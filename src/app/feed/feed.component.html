@@ -1,7 +1,7 @@
 <div class="publish">
     <form (ngSubmit)="savePost(f)" #f="ngForm">
         <div class="groups-selected">
-            <span class="tag" *ngFor="let group of groupsSelected">
+            <span class="tag" *ngFor="let group of groupsSelected" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">
                 @{{group.name}}
                 <button class="delete is-small" type="button" (click)="removeGroup(group)"></button>
             </span>

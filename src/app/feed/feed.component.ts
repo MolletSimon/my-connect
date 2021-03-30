@@ -41,6 +41,7 @@ export class FeedComponent implements OnInit {
       .subscribe(result => {
         this.post.next();
         f.form.reset();
+        this.groupsSelected = [];
         f.form.controls["group"].setValue("");
         this._toastr.info("Post publié !");
       })
@@ -62,5 +63,11 @@ export class FeedComponent implements OnInit {
   removeGroup(group: Group) {
     this.groupsSelected = this.groupsSelected.filter(g => g._id != group._id);
   }
+
+  addAlpha(color: string, opacity: number): string {
+      // coerce values so ti is between 0 and 1.
+      const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
+      return color + _opacity.toString(16).toUpperCase();
+    }
 
 }

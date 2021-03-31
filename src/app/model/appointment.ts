@@ -8,5 +8,5 @@ export interface Appointment {
     Location: string;
     RecurrenceRule: string;
     StartTime: Date;
-    group: Group
+    Group: Group
 }

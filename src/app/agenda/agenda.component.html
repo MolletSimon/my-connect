@@ -6,9 +6,10 @@
         [eventSettings]="eventObject"
         (actionComplete)="actionComplete($event)"
         (popupOpen)="onPopupOpen($event)"
+        locale="fr"
     > 
     <ng-template #eventSettingsTemplate let-data>
-        <div class="template-wrapper" [ngStyle]="{'background-color': addAlpha(data.color, 0.4)}">
+        <div class="template-wrapper" [ngStyle]="{'background-color': data.Group.color}">
             <div class="name">
                 {{data.Subject}}
             </div> 

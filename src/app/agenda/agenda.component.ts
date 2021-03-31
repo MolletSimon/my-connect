@@ -9,6 +9,117 @@ import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { Group } from '../model/group';
 import { Appointment } from '../model/appointment';
 import { ToastrService } from 'ngx-toastr';
+
+//import the loadCldr from ej2-base
+import { loadCldr, L10n } from '@syncfusion/ej2-base';
+import * as numberingSystems from '../../../node_modules/cldr-data/supplemental/numberingSystems.json';
+import * as gregorian from '../../../node_modules/cldr-data/main/fr/ca-gregorian.json';
+import * as numbers from '../../../node_modules/cldr-data/main/fr/numbers.json';
+import * as timeZoneNames from '../../../node_modules/cldr-data/main/fr/timeZoneNames.json';
+
+loadCldr(numberingSystems['default'], gregorian['default'], numbers['default'], timeZoneNames['default']);
+L10n.load({
+    "fr": {
+        "schedule": {
+            "day": "journée",
+            "week": "semaine",
+            "workWeek": "Semaine de travail",
+            "month": "Mois",
+            "today": "Aujourd`hui",
+            "noEvents": "Pas d'évènements",
+            "emptyContainer": "Il n'y a pas d'évènements sur cette journée",
+            "allDay": "Jour entier",
+            "start": "Début",
+            "end": "Fin",
+            "more": "Plus",
+            "close": "Fermer",
+            "cancel": "Annuler",
+            "noTitle": "Sans titre",
+            "delete": "Supprimer",
+            "deleteEvent": "Supprimer l'évènement",
+            "deleteMultipleEvent": "Supprimer plusieurs évènements",
+            "selectedItems": "Items sélectionnés",
+            "deleteSeries": "Supprimer la série",
+            "edit": "Modifier",
+            "editSeries": "Modifier la série",
+            "editEvent": "Modifier l'évènement",
+            "createEvent": "Créer",
+            "subject": "Nom",
+            "addTitle": "Ajouter un titre",
+            "moreDetails": "Plus de détails",
+            "save": "Sauvegarder",
+            "editContent": "Voulez-vous modifier cet évènement ou toute la série ?",
+            "deleteRecurrenceContent": "Voulez-vous supprimer seulement cette évènement ou toute la série ?",
+            "deleteContent": "Êtes-vous sûr de vouloir supprimer cet évènement ?",
+            "deleteMultipleContent": "Êtes-vous sûr de vouloir supprimer ces évènements ?",
+            "newEvent": "Nouvel évènement",
+            "title": "Titre",
+            "location": "Lieu",
+            "description": "Description",
+            "timezone": "UTC",
+            "startTimezone": "Début UTC",
+            "endTimezone": "Fin UTC",
+            "repeat": "Répeter",
+            "saveButton": "Sauvegarder",
+            "cancelButton": "Annuler",
+            "deleteButton": "Supprimer",
+            "recurrence": "Réccurence",
+            "wrongPattern": "Le réccurence pattern n'est pas valide.",
+            "seriesChangeAlert": "The changes made to specific instances of this series will be cancelled and those events will match the series again.",
+            "createError": "The duration of the event must be shorter than how frequently it occurs. Shorten the duration, or change the recurrence pattern in the recurrence event editor.",
+            "recurrenceDateValidation": "Some months have fewer than the selected date. For these months, the occurrence will fall on the last date of the month.",
+            "sameDayAlert": "Two occurrences of the same event cannot occur on the same day.",
+            "editRecurrence": "Modifier la réccurence",
+            "repeats": "Repeats",
+            "alert": "Alert",
+            "startEndError": "The selected end date occurs before the start date.",
+            "invalidDateError": "The entered date value is invalid.",
+            "ok": "Ok",
+            "occurrence": "Occurrence",
+            "series": "Séries",
+            "previous": "Précédent",
+            "next": "Suivant"
+            },
+            "calendar": {
+                "today": "Aujourd`hui"
+            },
+            "recurrenceeditor": {
+                "none": "Aucune",
+                "daily": "Journalier",
+                "weekly": "Hebdomadaire",
+                "monthly": "Mensuel",
+                "month": "Mois",
+                "yearly": "Annuel",
+                "never": "Jamais",
+                "until": "Jusqu'à",
+                "count": "Nombre de jours",
+                "first": "Premier",
+                "second": "Second",
+                "third": "Troisième",
+                "fourth": "Quatrième",
+                "last": "Dernier",
+                "repeat": "Répéter",
+                "repeatEvery": "Répéter tous les",
+                "on": "Répéter au",
+                "end": "Fin",
+                "onDay": "Jour",
+                "days": "Jours",
+                "weeks": "Semaine(s)",
+                "months": "Mois(s)",
+                "years": "Année(s)",
+                "every": "Tous les",
+                "summaryTimes": "time(s)",
+                "summaryOn": "on",
+                "summaryUntil": "until",
+                "summaryRepeat": "Repeats",
+                "summaryDay": "day(s)",
+                "summaryWeek": "week(s)",
+                "summaryMonth": "month(s)",
+                "summaryYear": "year(s)"
+            }
+        }
+    });
+
 @Component({
     selector: 'app-agenda',
     templateUrl: './agenda.component.html',
@@ -88,7 +199,7 @@ export class AgendaComponent implements OnInit {
                 formElement.firstChild.insertBefore(row, args.element.querySelector('.e-title-location-row'));
                 let container: HTMLElement = createElement('div', { className: 'custom-field-container' });
                 let inputEle: HTMLInputElement = createElement('input', {
-                    className: 'e-field', attrs: { name: 'Groupe concerné' }
+                    className: 'e-field', attrs: { name: 'Groupe' }
                 }) as HTMLInputElement;
                 container.appendChild(inputEle);
                 row.appendChild(container);
@@ -108,9 +219,8 @@ export class AgendaComponent implements OnInit {
     addAppointment(event: ActionEventArgs) {
         this.loading = true;
         console.log(event);
-        let appointment = event.addedRecords[0] as unknown as Appointment;
-        appointment.group = this.groups.find(g => g._id === event.addedRecords[0]);
-        console.log(appointment)
+        let appointment = event.addedRecords[0];
+        appointment["Group"] = this.groups.find(g => g._id == appointment["group"]);
         this._appointmentService.addAppointments(event.addedRecords[0] as unknown as Appointment)
             .subscribe(app => {
                 this._toastr.success("L'évènement a bien été ajouté ! ");

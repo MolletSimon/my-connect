@@ -19,7 +19,7 @@
 	</div>
 </div>
 
-<div class="grid-container" *ngIf="users" >
+<div class="grid-container fade-in" *ngIf="users" >
   <div class="card" *ngFor="let user of usersDisplayed" >
     <header class="card-header">
       <p class="card-header-title">
@@ -46,6 +46,11 @@
     </footer>
   </div>
 </div>
+
+<div class="progress-spinner fade-in" *ngIf="!users" >
+	<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+  
 
 <div class="modal fade-in" id="modal-add-user">
 	<div class="modal-background"></div>

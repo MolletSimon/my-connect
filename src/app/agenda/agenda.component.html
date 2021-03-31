@@ -10,4 +10,9 @@
     </ejs-schedule>
 </div>
 
+<div class="progress-spinner" *ngIf="!eventObject" >
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+  </div>
+  
+
 <progress class="progress is-primary fade-in" [value]="progress" max="100" *ngIf="progress < 100" >{{progress}}%</progress>

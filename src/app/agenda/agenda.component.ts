@@ -1,8 +1,8 @@
 import { AppointmentService } from './../services/appointment.service';
 import { GroupService } from './../services/group.service';
 import { Subject, Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-import { EventSettingsModel, PopupOpenEventArgs, ActionEventArgs } from '@syncfusion/ej2-angular-schedule';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { EventSettingsModel, PopupOpenEventArgs, ActionEventArgs, EventRenderedArgs, ScheduleComponent } from '@syncfusion/ej2-angular-schedule';
 import { View } from '@syncfusion/ej2-schedule';
 import { createElement } from '@syncfusion/ej2-base';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
@@ -126,6 +126,8 @@ L10n.load({
     styleUrls: ['./agenda.component.scss']
 })
 export class AgendaComponent implements OnInit {
+    @ViewChild('scheduleObj')
+    public scheduleObj: ScheduleComponent;
     public progress = 0;
     public loading = false;
     public groups: Group[];
@@ -212,6 +214,18 @@ export class AgendaComponent implements OnInit {
                 dropDownList.appendTo(inputEle);
                 inputEle.setAttribute('name', 'group');
             }
+        }
+    }
+
+    oneventRendered(args: EventRenderedArgs): void {
+        let categoryColor: string = args.data.Group["color"] as string;
+        if (!args.element || !categoryColor) {
+            return;
+        }
+        if (this.scheduleObj.currentView === 'Agenda') {
+            (args.element.firstChild as HTMLElement).style.borderLeftColor = categoryColor;
+        } else {
+            args.element.style.backgroundColor = categoryColor;
         }
     }
 

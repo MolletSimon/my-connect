@@ -1,5 +1,6 @@
 <div class="content fade-in" *ngIf="eventObject" >
     <ejs-schedule
+        #scheduleObj
         height="600px"
         [currentView]="setView"
         [selectedDate]="setDate"
@@ -7,14 +8,8 @@
         (actionComplete)="actionComplete($event)"
         (popupOpen)="onPopupOpen($event)"
         locale="fr"
+        (eventRendered)="oneventRendered($event)"
     > 
-    <ng-template #eventSettingsTemplate let-data>
-        <div class="template-wrapper" [ngStyle]="{'background-color': data.Group.color}">
-            <div class="name">
-                {{data.Subject}}
-            </div> 
-        </div>
-    </ng-template>
     </ejs-schedule>
 
 </div>

@@ -1,12 +1,12 @@
-<div class="filter">
+<!-- FILTRES -->
+<div class="filter" *ngIf="groups" >
 	<div class="columns">
 		<div class="column is-3 sort-group">
 			<div class="select">
-				<select name="filter-group">
-					<option value="">Trier par groupe</option>
-					<option value="">Communication</option>
-					<option value="">Ménage</option>
-					<option value="">Louange</option>
+				<select name="filter-group" (change)="sortGroup($event.target.value)">
+					<option value="" disabled selected>Trier par groupe</option>
+					<option [value]="group._id" *ngFor="let group of groups">{{group.name}}</option>
+					<option value="all">Tous</option>
 				</select>
 			</div>
 		</div>
@@ -19,6 +19,7 @@
 	</div>
 </div>
 
+<!-- UTILISATEURS -->
 <div class="grid-container fade-in" *ngIf="users" >
   <div class="card" *ngFor="let user of usersDisplayed" >
     <header class="card-header">
@@ -36,22 +37,22 @@
 		<ng-container *ngIf="user.isSuperadmin">
 			<span class="tag">SUPER ADMINISTRATEUR</span>
 		</ng-container>
-        <span class="tag" *ngFor="let group of user.groups" ></span>
+        <span class="tag mr-2" *ngFor="let group of user.groups" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">{{group.name}}</span>
       </div>
     </div>
     <footer class="card-footer">
-      <a class="card-footer-item">Ajouter des groupes</a>
-      <!-- <a href="#" class="card-footer-item">Edit</a> -->
+      <a class="card-footer-item" (click)="openModal('modal-add-group', user._id)">Ajouter des groupes</a>
       <a class="card-footer-item red" (click)="deleteUser(user)">Supprimer</a>
     </footer>
   </div>
 </div>
 
-<div class="progress-spinner fade-in" *ngIf="!users" >
+<!-- LOADING -->
+<div class="progress-spinner fade-in" *ngIf="!users || !groups" >
 	<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 </div>
   
-
+<!-- MODAL AJOUT UTILISATEUR -->
 <div class="modal fade-in" id="modal-add-user">
 	<div class="modal-background"></div>
 	<form (ngSubmit)="saveForm(f)" #f="ngForm">
@@ -104,4 +105,40 @@
 		</footer>
 		</div>
 	</form>
-  </div>
+</div>
+
+<!-- MODAL AJOUT GROUPE -->
+<div class="modal" id="modal-add-group">
+	<div class="modal-background"></div>
+	<div class="modal-content">
+		<div class="box">
+			<label class="subtitle is-5 has-text-centered">Ajouter des groupes à un utilisateur</label>
+			<hr>
+			<div class="columns">
+				<div class="column is-9 add-group-select">
+					<div class="select">
+						<select name="filter-group" id="add-group" (change)="addOneGroup($event.target.value)">
+							<option value="" disabled selected>Nom du groupe</option>
+							<option [value]="group._id" *ngFor="let group of groups">{{group.name}}</option>
+						</select>
+					</div>
+					<ng-container *ngFor="let group of groupsAdded">
+						<p class="tag mr-2 mt-2" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">
+							@{{group.name}}
+							<button class="delete is-small" type="button" (click)="removeGroup(group)"></button>
+						</p>
+					</ng-container>
+				</div>
+				<div class="column is-3">
+					<div>
+						<button class="button" type="button" (click)="addGroup()">Ajouter un autre</button>
+					</div>
+					<div class="mt-3">
+						<button class="button is-primary" type="button" (click)="saveGroup()">Sauvegarder</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="modal-close is-large" aria-label="close" type="button" (click)="closeModal('modal-add-group')"></button>
+</div>

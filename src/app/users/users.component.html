@@ -35,9 +35,9 @@
         {{user.mail}}
         <br>
 		<ng-container *ngIf="user.isSuperadmin">
-			<span class="tag">SUPER ADMINISTRATEUR</span>
+			<span class="tag mr-2">SUPER ADMINISTRATEUR</span>
 		</ng-container>
-        <span class="tag mr-2" *ngFor="let group of user.groups" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">
+        <span class="tag mr-2 mt-1" *ngFor="let group of user.groups" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">
 			{{group.name}}
 			<button class="delete is-small" type="button" (click)="removeGroupFromUser(group, user)"></button>
 		</span>
@@ -133,10 +133,7 @@
 					</ng-container>
 				</div>
 				<div class="column is-3">
-					<div>
-						<button class="button" type="button" (click)="addGroup()">Ajouter un autre</button>
-					</div>
-					<div class="mt-3">
+					<div class="">
 						<button class="button is-primary" type="button" (click)="saveGroup()">Sauvegarder</button>
 					</div>
 				</div>

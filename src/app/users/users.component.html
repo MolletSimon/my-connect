@@ -37,7 +37,10 @@
 		<ng-container *ngIf="user.isSuperadmin">
 			<span class="tag">SUPER ADMINISTRATEUR</span>
 		</ng-container>
-        <span class="tag mr-2" *ngFor="let group of user.groups" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">{{group.name}}</span>
+        <span class="tag mr-2" *ngFor="let group of user.groups" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">
+			{{group.name}}
+			<button class="delete is-small" type="button" (click)="removeGroupFromUser(group, user)"></button>
+		</span>
       </div>
     </div>
     <footer class="card-footer">

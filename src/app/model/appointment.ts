@@ -1,3 +1,4 @@
+import { Group } from './group';
 export interface Appointment {
     _id: string;
     Description: string;
@@ -7,9 +8,5 @@ export interface Appointment {
     Location: string;
     RecurrenceRule: string;
     StartTime: Date;
-    group: {
-        id: string;
-        color: string;
-        name: string;
-    }
+    group: Group
 }

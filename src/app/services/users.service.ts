@@ -42,4 +42,8 @@ export class UsersService {
 		};
 		return this._httpClient.put<any>(`${this._apiService.apiUrl}user/addGroup/${id}`, body ,this._apiService.httpOptions)
 	}
+
+	updateUser(user: User): Observable<any> {
+		return this._httpClient.put<any>(`${this._apiService.apiUrl}user/update/${user._id}`, user ,this._apiService.httpOptions)
+	}
 }

@@ -107,6 +107,10 @@ export class AgendaComponent implements OnInit {
     // --------------------- SERVICES --------------------- //
     addAppointment(event: ActionEventArgs) {
         this.loading = true;
+        console.log(event);
+        let appointment = event.addedRecords[0] as unknown as Appointment;
+        appointment.group = this.groups.find(g => g._id === event.addedRecords[0]);
+        console.log(appointment)
         this._appointmentService.addAppointments(event.addedRecords[0] as unknown as Appointment)
             .subscribe(app => {
                 this._toastr.success("L'évènement a bien été ajouté ! ");
@@ -123,5 +127,12 @@ export class AgendaComponent implements OnInit {
                 this.getAppointments();
             },
             err => console.error(err));
+    }
+
+      // CSS FUNCTION
+    addAlpha(color: string, opacity: number): string {
+        // coerce values so ti is between 0 and 1.
+        const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
+        return color + _opacity.toString(16).toUpperCase();
     }
 }

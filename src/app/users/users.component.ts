@@ -1,10 +1,10 @@
+import { Group } from './../model/group';
 import { GroupService } from './../services/group.service';
 import { UsersService } from './../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
-import { Group } from '../model/group';
 
 @Component({
 	selector: 'app-users',
@@ -140,5 +140,17 @@ export class UsersComponent implements OnInit {
 	addOneGroup(id) {
 		console.log(id)
 		this.groupsAdded.push(this.groups.find(g => g._id === id));
+	}
+
+	removeGroupFromUser(group: Group, user: User) {
+		this.usersDisplayed = [];
+		user.groups = user.groups.filter(u => u._id != group._id);
+		this._usersService.updateUser(user)
+			.subscribe(() => {
+				this._toastr.success('Groupe supprimé !');
+				this.usersDisplayed = this.users;
+			}, err => {
+				this._toastr.error('Oups, une erreur est survenue')
+			})
 	}
 }

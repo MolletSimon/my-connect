@@ -15,13 +15,13 @@
     </header>
 </div>
 
-<div id="add-btn-div" class="fade-in">
-    <button class="button is-large is-fullwidth is-primary" id="add-btn" (click)="addGroup()">Ajouter un groupe</button>
-</div>
-
 <div class="progress-spinner fade-in" *ngIf="!groups" >
     <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-</div>  
+</div> 
+
+<div id="add-btn-div" class="fade-in">
+    <button class="button is-large is-fullwidth is-primary" id="add-btn" (click)="addGroup()">Ajouter un groupe</button>
+</div> 
 
 
 <div class="modal fade-in" id="modal-add-group">

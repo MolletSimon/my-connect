@@ -22,7 +22,7 @@ export class UsersService {
 			"active": true,
 			"firstname": value.firstname,
 			"lastname": value.lastname,
-			"isSuperadmin": value.isSuperadmin,
+			"isSuperadmin": value.isSuperadmin == "" ? false : true,
 			"mail": value.mail,
 			"phone": value.phone,
 			"groups": [],

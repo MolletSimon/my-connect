@@ -34,7 +34,7 @@ export class FeedService {
         "user": {
           "lastname": user.lastname,
           "firstname": user.firstname,
-          "id": user.id
+          "id": user._id
         },
         "group": group
       }, this._apiService.httpOptions

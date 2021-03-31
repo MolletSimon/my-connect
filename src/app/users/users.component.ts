@@ -33,8 +33,8 @@ export class UsersComponent implements OnInit {
 	}
 
 	search(value: string) {
-		console.log(value);
-		this.usersDisplayed = this.users.filter(u => u.lastname.includes(value) || u.firstname.includes(value))
+		value = value.toLowerCase();
+		this.usersDisplayed = this.users.filter(u => u.lastname.toLowerCase().includes(value) || u.firstname.toLowerCase().includes(value))
 	}
 
 	openModal(id: string) {
@@ -46,6 +46,7 @@ export class UsersComponent implements OnInit {
 	}
 
 	saveForm(f: NgForm) {
+		console.log(f)
 		this._usersService.addUser(f.form.value)
 			.subscribe(user => {
 				this._toastr.success(`L'utilisateur ${user.firstname} a bien été ajouté`);

@@ -10,6 +10,13 @@
         locale="fr"
         (eventRendered)="oneventRendered($event)"
     > 
+    <ng-template #eventSettingsTemplate let-data>
+        <div>
+            <div class="name">
+                {{data.Subject}}
+            </div> 
+        </div>
+    </ng-template>
     </ejs-schedule>
 
 </div>

@@ -15,11 +15,9 @@
     display: flex;
 }
 
-.filter {
+.sort-group {
     display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin: 2rem;
+    justify-content: flex-end;
 }
 
 .control {

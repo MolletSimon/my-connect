@@ -15,7 +15,7 @@
                 </select>
             </div>
             <div class="buttons">
-                <button class="button is-active is-light" (click)="addGroup(f.form.value.group)" type="button" [disabled]='f.form.controls["group"].invalid'>Ajouter un groupe</button>
+                <button class="button is-active is-light" (click)="addGroup(f.form.value.group)" type="button" [disabled]='!f.form.value.group'>Ajouter un groupe</button>
                 <button class="button is-info is-light" type="submit" [disabled]="f.invalid">Publier</button>
             </div>
         </div>

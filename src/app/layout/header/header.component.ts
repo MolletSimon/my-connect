@@ -13,7 +13,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUser();
-    console.log(this.user)
   }
 
   getCurrentUser() {

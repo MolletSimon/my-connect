@@ -1,40 +1,47 @@
 @import "../../styles/main.scss";
+@import "./header.mobile.scss";
 
-.list {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}  
-
-.header {
-    padding: 3rem 3rem 1rem 3rem;
-}
-
-.active {
-    color: $primary;
-    //border-bottom: solid $primary;
-
-    &:hover {
-        color: $primary;
-        border-bottom: none;
+@media only screen and (min-width: 601px) {
+    .list {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
     }
-}
-
-.header {
-    // border-bottom: solid grey;
-    margin: 0 3rem 1rem 3rem;
-}
-
-img {
-    width: 130px;
-}
-
-.separator {
-    display: flex;
-    justify-content: center;
-
-    hr {
-        height: 3px;
-        width: 50%;
+    
+    .header-mobile {
+        display: none;
+    }
+    
+    .header {
+        padding: 3rem 3rem 1rem 3rem;
+    }
+    
+    .active {
+        color: $primary;
+        //border-bottom: solid $primary;
+    
+        &:hover {
+            color: $primary;
+            border-bottom: none;
+        }
+    }
+    
+    .header {
+        // border-bottom: solid grey;
+        margin: 0 3rem 1rem 3rem;
+    }
+    
+    img {
+        width: 130px;
+    }
+    
+    .separator {
+        display: flex;
+        justify-content: center;
+    
+        hr {
+            height: 3px;
+            width: 50%;
+        }
     }
 }

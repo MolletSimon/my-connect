@@ -1,0 +1,12 @@
+@import "../../styles/main.scss";
+
+@media only screen and (max-width: 600px) {
+  .header {
+    display: none;
+  }
+
+  .is-active {
+      color: $primary !important;
+      border-bottom-color: $primary !important;
+  }
+}

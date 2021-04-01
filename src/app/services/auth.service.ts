@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 import { catchError } from 'rxjs/operators';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +14,11 @@ export class AuthService {
 
   login(mail, password): Observable<any>{
     return this._httpService.post(`${this._apiService.apiUrl}user/login`, {"mail": mail, "password": password});
+  }
+
+  updatePassword(password: String, id: string): Observable<User> {
+    return this._httpService.put<User>(`${this._apiService.apiUrl}user/updatePassword/${id}`, {
+      "password": password
+    }, this._apiService.httpOptions)
   }
 }

@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { UsersService } from './../../services/users.service';
 import { User } from './../../model/user';
@@ -17,7 +18,8 @@ export class EditComponent implements OnInit {
 
   constructor(
     private _usersService: UsersService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -41,7 +43,10 @@ export class EditComponent implements OnInit {
       .subscribe(user => {
         this._toastr.success("Informations modifiées !");
         sessionStorage.removeItem("CurrentUser");
-        sessionStorage.setItem("CurrentUser", sign(user, "el-tokenos-my-connect-19283746567-jfzofhouhouz"));
+        let token = {
+          token: sign(user, 'el-tokenos-my-connect-19283746567-jfzofhouhouz')
+        }
+        sessionStorage.setItem("CurrentUser", JSON.stringify(token));
         this.getUser();
         f.reset();
       }, err => {
@@ -50,6 +55,10 @@ export class EditComponent implements OnInit {
   }
 
   updatePassword(p: NgForm) {
-
+    this._authService.login(this.user.mail, p.value.oldPassword)
+      .subscribe(result => {
+        this._authService.updatePassword(p.value.newPassword, this.user._id)
+          .subscribe(user => this._toastr.success("Mot de passe modifié !"), err => this._toastr.error("Oups " + err))
+      }, err => this._toastr.error("Oups ! Mot de passe incorrect ☹️"))
   }
 }

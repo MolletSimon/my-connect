@@ -54,11 +54,14 @@
     <div class="field mb-5">
         <label class="label">Confirmation du mot de passe</label>
         <div class="control">
-          <input class="input" type="email" placeholder="**********" ngModel name="confirmPassword">
+          <input class="input" type="password" placeholder="**********" ngModel name="confirmPassword"
+            [ngClass]="{'is-danger': p.value.newPassword != p.value.confirmPassword}"
+          >
+          <span style="font-style: italic;" *ngIf="p.value.newPassword != p.value.confirmPassword"  class="has-text-danger">Les deux mots de passes doivent être identiques</span>
         </div>
     </div>
 
     <div class="field is-grouped is-grouped-right">
-        <button class="button is-info">Sauvegarder</button>
+        <button class="button is-info" [disabled]="p.value.newPassword != p.value.confirmPassword">Sauvegarder</button>
     </div>
 </form>

@@ -1,24 +1,41 @@
-.publish {
-    margin: 0 20rem 0 20rem;
-}
+@media only screen and (max-width: 600px) {
+    .textarea {
+        display: none;
+    }
 
-.options {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: flex-end;
-
-    div {
-        margin-left: 1rem;
+    .mobile-content {
+        margin: 1.5rem 0.5rem 1.5rem 0.5rem;
     }
 }
 
-.select {
-    select {
-        width: 20rem;
+@media only screen and (min-width: 601px) {
+    .publish {
+        margin: 0 20rem 0 20rem;
+    }
+    
+    .options {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: flex-end;
+    
+        div {
+            margin-left: 1rem;
+        }
+    }
+    
+    .select {
+        select {
+            width: 20rem;
+        }
+    }
+    
+    .tag {
+        margin-right: .6rem;
+        margin-bottom: .6rem;
+    }
+
+    .mobile-content {
+        display: none;
     }
 }
 
-.tag {
-    margin-right: .6rem;
-    margin-bottom: .6rem;
-}

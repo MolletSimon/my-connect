@@ -1,0 +1,64 @@
+<h1 class="title is-4 has-text-centered hello">Bonjour {{user.firstname}}, voici vos informations </h1>
+<form class="box" (ngSubmit)="saveInfos(f)" #f="ngForm">
+    <label class="label hello">Modifier vos informations</label>
+    <hr>
+    <div class="field mb-5">
+        <label class="label">Nom</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="{{user.lastname}}" ngModel name="lastname">
+        </div>
+    </div>
+
+    <div class="field mb-5">
+        <label class="label">Prénom</label>
+        <div class="control">
+            <input class="input" type="text" placeholder="{{user.firstname}}" ngModel name="firstname">
+        </div>
+    </div>
+    <div class="field mb-5">
+      <label class="label">Email</label>
+      <div class="control">
+        <input class="input" type="email" placeholder="{{user.mail}}" ngModel name="mail">
+      </div>
+    </div>
+
+    <div class="field mb-5">
+        <label class="label">Téléphone</label>
+        <div class="control">
+          <input class="input" type="tel" placeholder="{{user.phone}}" ngModel name="phone">
+        </div>
+    </div>
+  
+    <div class="field is-grouped is-grouped-right">
+        <button class="button is-info" type="submit">Sauvegarder</button>
+    </div>
+</form>
+
+<form class="box" (ngSubmit)="updatePassword(p)" #p="ngForm">
+    <label class="label hello">Modifier votre mot de passe</label>
+    <hr>
+    <div class="field mb-5">
+        <label class="label">Ancien mot de passe</label>
+        <div class="control">
+          <input class="input" type="password" placeholder="**********" ngModel name="oldPassword">
+        </div>
+    </div>
+
+    <div class="field mb-5">
+        <label class="label">Nouveau mot de passe</label>
+        <div class="control">
+          <input class="input" type="password" placeholder="**********" ngModel name="newPassword">
+        </div>
+    </div>
+
+    <div class="field mb-5">
+        <label class="label">Confirmation du mot de passe</label>
+        <div class="control">
+          <input class="input" type="email" placeholder="**********" ngModel name="confirmPassword">
+        </div>
+    </div>
+
+    <div class="field is-grouped is-grouped-right">
+        <button class="button is-info">Sauvegarder</button>
+    </div>
+</form>

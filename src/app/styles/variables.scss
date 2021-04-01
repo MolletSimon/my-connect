@@ -1,1 +1,3 @@
-$primary: rgb(139, 61, 61)
+@import "../../../node_modules/bulma/bulma.sass";
+
+$primary: $info;

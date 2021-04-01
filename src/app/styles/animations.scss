@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .fade-in {
   -webkit-animation: fadein 2s;
   /* Safari, Chrome and Opera > 12.1 */
@@ -174,4 +176,25 @@
     display: flex;
     justify-content: center;
     margin-top: 4rem;
+}
+
+.anim-link {
+  display: inline-block;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.anim-link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: $primary;
+  transition: width .3s;
+}
+
+.anim-link:hover::after {
+  width: 100%;
+  color: $primary;
 }

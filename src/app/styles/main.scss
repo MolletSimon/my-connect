@@ -2,3 +2,15 @@
 @import "../../../node_modules/bulma/bulma.sass";
 @import "./animations.scss";
 @import "./variables.scss";
+
+.is-blue {
+    color: $primary;
+}
+
+.is-blue-transparent {
+    background-color: rgba(0, 89, 185, 0.7);
+}
+
+.is-white {
+    color: white;
+}

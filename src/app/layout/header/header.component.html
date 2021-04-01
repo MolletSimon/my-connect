@@ -1,25 +1,33 @@
 <nav class="header">
     <ul class="list">
-        <li><a routerLink="/feed" routerLinkActive="active">Fil d'actualité</a></li>
-        <li><a routerLink="/group" routerLinkActive="active">Mes groupes</a></li>
-        <li><a routerLink="/agenda" routerLinkActive="active">Agenda</a></li>
-        <li><a routerLink="/drive" routerLinkActive="active">Drive</a></li>
-        <li><a routerLink="/users" routerLinkActive="active">Gérer les utilisateurs</a></li>
+        <li>
+          <a routerLink="/feed">
+            <img src="../../../assets/images/testmyconnect.png">
+          </a>
+        </li>
+        <li><a routerLink="/feed" routerLinkActive="active" class="anim-link">Fil d'actualité</a></li>
+        <li><a routerLink="/group" routerLinkActive="active" class="anim-link">Mes groupes</a></li>
+        <li><a routerLink="/agenda" routerLinkActive="active" class="anim-link">Agenda</a></li>
+        <li><a routerLink="/drive" routerLinkActive="active" class="anim-link">Drive</a></li>
+        <li><a routerLink="/users" routerLinkActive="active" class="anim-link">Gérer les utilisateurs</a></li>
         <li *ngIf="user" >
             <div class="dropdown is-hoverable">
                 <div class="dropdown-trigger">
-                  <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-                    <span class="icon">
+                  <button class="button is-info" aria-haspopup="true" aria-controls="dropdown-menu4">
+                    <span class="icon is-white">
                         <i class="fas fa-user" aria-hidden="true"></i>
                     </span>
-                    <span>{{user.firstname}}</span>
-                    <span class="icon is-small">
+                    <span class="is-white">{{user.firstname}}</span>
+                    <span class="icon is-small is-white">
                       <i class="fas fa-angle-down" aria-hidden="true"></i>
                     </span>
                   </button>
                 </div>
                 <div class="dropdown-menu" id="dropdown-menu4" role="menu">
                   <div class="dropdown-content">
+                    <div class="dropdown-item">
+                        <button class="button is-info is-inverted" (click)="editUser()">Modifier les infos</button>
+                    </div>
                     <div class="dropdown-item">
                         <button class="button is-danger is-inverted" (click)="disconnect()">Se déconnecter</button>
                     </div>
@@ -28,4 +36,7 @@
               </div>
         </li>
     </ul>
+    <div class="separator">
+      <hr>
+    </div>
 </nav>

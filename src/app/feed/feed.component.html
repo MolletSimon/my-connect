@@ -6,14 +6,24 @@
                 <button class="delete is-small" type="button" (click)="removeGroup(group)"></button>
             </span>
         </div>
-        <input type="text" class="input mobile-content is-rounded" placeholder="Publier quelque chose.." name="content" ngModel>
+        <div class="input-content">
+            <input type="text" class="input mobile-content is-rounded" placeholder="Publier quelque chose.." name="content" ngModel>
+        </div>
+        
         <textarea required class="textarea" placeholder="Publier quelque chose.." name="content" ngModel></textarea>
         <div class="options">
-            <div class="select">
-                <select ngModel name="group" required>
-                    <option hidden value="" disabled selected>Sélectionnez un groupe</option>
-                    <option *ngFor="let g of groups" [ngValue]="g">{{g.name}}</option>
-                </select>
+            <div class="add-group">
+                <div class="select">
+                    <select ngModel name="group" required>
+                        <option hidden value="" disabled selected>Sélectionnez un groupe</option>
+                        <option *ngFor="let g of groups" [ngValue]="g">{{g.name}}</option>
+                    </select>
+                </div>
+                <button class="button is-active is-light is-rounded add-mobile" (click)="addGroup(f.form.value.group)" type="button" [disabled]='!f.form.value.group'>
+                    <span class="icon">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                </button>
             </div>
             <div class="buttons">
                 <button class="button is-active is-light" (click)="addGroup(f.form.value.group)" type="button" [disabled]='!f.form.value.group'>Ajouter un groupe</button>

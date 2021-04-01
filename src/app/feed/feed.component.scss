@@ -6,11 +6,38 @@
     .mobile-content {
         margin: 1.5rem 0.5rem 1.5rem 0.5rem;
     }
+
+    .input-content {
+        display: flex;
+        justify-content: center;
+
+        input {
+            width: 90%;
+            margin-top: .2rem;
+        }
+    }
+
+    .add-group {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .buttons {
+        display: none;
+    }
+
+    .groups-selected {
+        padding: 1rem 0 0 1.2rem;
+    }
 }
 
 @media only screen and (min-width: 601px) {
     .publish {
         margin: 0 20rem 0 20rem;
+    }
+
+    .add-mobile {
+        display: none;
     }
     
     .options {

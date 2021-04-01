@@ -1,7 +1,7 @@
 <h4 class="text-info">{{user.firstname}}, vous faites partie des groupes suivants</h4>
 <div class="card fade-in" *ngFor="let group of groups" >
     <progress class="progress is-small is-danger" max="100" *ngIf="progress" ></progress>
-    <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">
+    <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.6)}">
         <div class="card-header-title">
             {{group.name}}
         </div>

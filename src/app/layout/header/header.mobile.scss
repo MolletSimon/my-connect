@@ -9,4 +9,35 @@
       color: $primary !important;
       border-bottom-color: $primary !important;
   }
+
+  
+
+  .bandeau {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 0.5fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        ". . .";
+    align-items: center;
+
+    div {
+        display: flex;
+        justify-content: center;
+    }
+  }
+
+  .header-mobile {
+    hr {
+        background-color: #d6d6d6;
+        border: none;
+        display: block;
+        height: 1px;
+        margin: 0;
+    }
+  }
+
+  img {
+    height: 50px;
+    }
 }

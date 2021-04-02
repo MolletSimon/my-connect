@@ -1,50 +1,106 @@
 @import "../styles/main.scss";
 
-.card {
-    margin: 0 10rem 1rem 10rem;
+@media only screen and (max-width: 600px) {
+    .card {
+        margin: 0.5rem 1rem 0.5rem 1rem;
+    }
 
-    .card-header {
+    .desktop {
+        display: none;
+    }
+
+    #add-btn {
+        width: 87%;
         padding: 1rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr;
-        gap: 0px 0px;
-        grid-template-areas:
-            ". . .";
+        margin-bottom: 1rem;
+    }
+
+    #add-btn-div {
+        justify-content: center;
+        display: flex;
+    }
+
+    .text-info {
+        color: $info;
+        text-align: center;
+        font-style: italic;
+        margin: 1rem 0.5rem 1rem 0.5rem;
+        font-weight: bold;
+    }
+
+    .center {
+        justify-content: center;
+    }
+
+    .responsable {
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem;
+    }
+
+    .card-content {
+        padding: 1rem;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 0.5rem;
+        margin-bottom: -1rem;
     }
 }
 
-.responsable {
-    align-items: center;
-    color: #363636;
-    display: flex;
-    flex-grow: 1;
-    padding: .75rem 1rem;
-    text-align: center;
-    font-style: italic;
-}
+@media only screen and (min-width: 601px) {
+    .mobile {
+        display: none;
+    }
 
-.buttons {
-    justify-content: flex-end;
-}
-
-.text-info {
-    color: $info;
-    text-align: center;
-    font-style: italic;
-    margin-bottom: 1.5rem;
-}
-
-#add-btn {
-    margin: 1.5rem 6rem 0 6rem;
-    width: auto;
-}
-
-#add-btn-div {
-    display: flex;
-    justify-content: center;
-}
-
-#group-name {
-    margin-bottom: 1rem;
+    .card {
+        margin: 0 10rem 1rem 10rem;
+    
+        .card-header {
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr;
+            gap: 0px 0px;
+            grid-template-areas:
+                ". . .";
+        }
+    }
+    
+    .responsable {
+        align-items: center;
+        color: #363636;
+        display: flex;
+        flex-grow: 1;
+        padding: .75rem 1rem;
+        text-align: center;
+        font-style: italic;
+    }
+    
+    .buttons {
+        justify-content: flex-end;
+    }
+    
+    .text-info {
+        color: $info;
+        text-align: center;
+        font-style: italic;
+        margin-bottom: 1.5rem;
+    }
+    
+    #add-btn {
+        margin: 1.5rem 6rem 0 6rem;
+        width: auto;
+    }
+    
+    #add-btn-div {
+        display: flex;
+        justify-content: center;
+    }
+    
+    #group-name {
+        margin-bottom: 1rem;
+    }
 }

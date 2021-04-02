@@ -1,18 +1,36 @@
 <h4 class="text-info">{{user.firstname}}, vous faites partie des groupes suivants</h4>
-<div class="card fade-in" *ngFor="let group of groups" >
+<div class="card fade-in desktop" *ngFor="let group of groups" >
     <progress class="progress is-small is-danger" max="100" *ngIf="progress" ></progress>
-    <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.6)}">
+    <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.5)}">
         <div class="card-header-title">
             {{group.name}}
         </div>
         <div class="responsable">
-            <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
+            <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.1)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
         </div>
         <div class="buttons">
             <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="delete(group._id)">Supprimer</button>
             <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">Inviter</button>
         </div>
     </header>
+</div>
+
+<div class="card fade-in mobile mb-5" *ngFor="let group of groups" >
+    <progress class="progress is-small is-danger" max="100" *ngIf="progress" ></progress>
+    <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.5)}">
+        <div class="card-header-title center">
+            <p>{{group.name}}</p>
+        </div>
+    </header>
+    <div class="card-content" [ngStyle]="{'background-color': addAlpha(group.color, 0.5)}">
+        <div class="responsable">
+            <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.1)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
+        </div>
+        <div class="buttons">
+            <button class="button" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="delete(group._id)">Supprimer</button>
+            <button class="button" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">Inviter</button>
+        </div>
+    </div>
 </div>
 
 <div class="progress-spinner fade-in" *ngIf="!groups" >

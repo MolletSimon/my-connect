@@ -42,7 +42,25 @@
 </nav>
 
 <div class="header-mobile">
-  <div class="tabs is-centered">
+  <div class="bandeau">
+    <div class="update">
+      <span class="icon" (click)="editUser()">
+        <i class="fas fa-user-cog"></i>
+      </span>
+    </div>
+    <div class="logo">
+      <a routerLink="/feed">
+        <img src="../../../assets/images/testmyconnect.png">
+      </a>
+    </div>
+    <div class="disconnect">
+      <span class="icon" (click)="disconnect()">
+        <i class="fas fa-sign-out-alt"></i>
+      </span>
+    </div>
+  </div>
+  <hr>
+  <div class="tabs is-centered is-large">
     <ul>
         <li><a routerLink="/feed" routerLinkActive="is-active">
           <span class="icon">
@@ -55,9 +73,9 @@
         <li><a routerLink="/agenda" routerLinkActive="is-active"><span class="icon">
           <i class="fas fa-calendar"></i>
         </span></a></li>
-        <li><a routerLink="/drive" routerLinkActive="is-active"><span class="icon">
+        <!-- <li><a routerLink="/drive" routerLinkActive="is-active"><span class="icon">
           <i class="fas fa-hdd"></i>
-        </span></a></li>
+        </span></a></li> -->
         <li><a routerLink="/users" routerLinkActive="is-active"><span class="icon">
           <i class="fas fa-users"></i>
         </span></a></li>

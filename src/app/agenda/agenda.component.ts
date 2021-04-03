@@ -134,6 +134,7 @@ export class AgendaComponent implements OnInit {
     public appointments: Appointment[];
     public groupsDisplayed: [{text: string, value: string}] = [] as any;
     public setView: View = 'Month';
+    public setViewMobile: View = 'Agenda';
     public setDate: Date = new Date();
     public eventObject: EventSettingsModel;
 
@@ -225,6 +226,10 @@ export class AgendaComponent implements OnInit {
             (args.element.firstChild as HTMLElement).style.borderLeftColor = categoryColor;
         } else {
             args.element.style.backgroundColor = categoryColor;
+        }
+
+        if (window.matchMedia("(max-width: 600px)").matches) {
+            this.setView = 'Agenda';
         }
     }
 

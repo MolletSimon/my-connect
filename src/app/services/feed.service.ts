@@ -21,7 +21,7 @@ export class FeedService {
     let group = [];
     groups.forEach(g => {
       group.push({
-        "id": g._id,
+        "_id": g._id,
         "name": g.name,
         "color": g.color
       })

@@ -1,0 +1,47 @@
+.card {
+    margin: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.desktop {
+    display: none;
+}
+
+#add-btn {
+    width: 87%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+#add-btn-div {
+    justify-content: center;
+    display: flex;
+}
+
+.text-info {
+    color: $info;
+    text-align: center;
+    font-style: italic;
+    margin: 1rem 0.5rem 1rem 0.5rem;
+    font-weight: bold;
+}
+
+.center {
+    justify-content: center;
+}
+
+.responsable {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.card-content {
+    padding: 1rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-bottom: -1rem;
+}

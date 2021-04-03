@@ -2,6 +2,7 @@ import { Post } from './../../model/post';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FeedService } from 'src/app/services/feed.service';
 import { Subject } from 'rxjs';
+import { Group } from 'src/app/model/group';
 
 @Component({
   selector: 'app-posts',
@@ -10,8 +11,10 @@ import { Subject } from 'rxjs';
 })
 export class PostsComponent implements OnInit {
   public posts: Post[];
+  public postsDisplayed: Post[];
   @Input() post: Subject<any>;
-
+  @Input() groups: Group[];
+  
   constructor(private _feedService: FeedService) { }
 
   ngOnInit(): void {
@@ -23,14 +26,21 @@ export class PostsComponent implements OnInit {
   }
 
   getPosts() {
-    this._feedService.getPosts().subscribe(result => this.posts = result);
+    this._feedService.getPosts().subscribe(result => {
+      this.posts = result
+      this.postsDisplayed = result;
+    });
   }
 
-    // CSS FUNCTION
-    addAlpha(color: string, opacity: number): string {
-      // coerce values so ti is between 0 and 1.
-      const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
-      return color + _opacity.toString(16).toUpperCase();
-    }
+  filterByGroup(group: Group, event) {
+    this.postsDisplayed = this.posts.filter(p => p.group.some(g => g._id === group._id));
+  } 
+
+  // CSS FUNCTION
+  addAlpha(color: string, opacity: number): string {
+    // coerce values so ti is between 0 and 1.
+    const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
+    return color + _opacity.toString(16).toUpperCase();
+  }
 
 }

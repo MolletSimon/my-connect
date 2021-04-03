@@ -11,22 +11,23 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
   mail: String;
   password: String;
+  loading: boolean;
 
   constructor(private _authService: AuthService, private _toastr: ToastrService, private _router: Router) { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem("CurrentUser").length > 0) {
+    if(sessionStorage.getItem("CurrentUser")) {
       this._router.navigate(['feed'])
     }
   }
 
   login() {
+    this.loading = true;
     if (this.mail && this.password)
       this._authService.login(this.mail, this.password).subscribe(result => {
-        console.log(result)
         sessionStorage.setItem("CurrentUser", JSON.stringify(result));
         this._router.navigate(['feed'])
-        location.reload()
+        location.reload();
       }, error => {
         console.log(error)
         this._toastr.error(error.error.message);

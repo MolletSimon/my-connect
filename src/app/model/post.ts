@@ -6,10 +6,10 @@ export interface Post {
         firstname: string;
         lastname: string;
     };
-    group: {
-        id: string;
+    group: [{
+        _id: string;
         name: string;
         color: string;
-    }
+    }]
     date: Date;
 }

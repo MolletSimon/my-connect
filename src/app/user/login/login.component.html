@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" *ngIf="!loading" >
     <div class="title">
         <h1>Vous êtes déjà de retour ! 😁</h1>
     </div>
@@ -26,9 +26,12 @@
   </div>
   <div class="field is-grouped is-grouped-right">
     <p class="control">
-      <button class="button is-primary" (click)="login()">
+      <button class="button is-primary" (click)="login()" *ngIf="!loading" >
         Se connecter
       </button>
     </p>
   </div>
+</div>
+<div class="progress-spinner" *ngIf="loading" >
+  <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 </div>

@@ -14,6 +14,8 @@
         font-size: 1rem;
         font-style: italic;
     }
+
+    
 }
 
 @media only screen and (min-width: 601px) {
@@ -22,6 +24,21 @@
       }
 }
       
+.filter {
+    margin: 2rem 5rem .3rem 5rem;
+    display: flex;
+    justify-content: center;
+
+    .tag {
+        margin-left: 1rem;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 40%;
+        }
+    }
+    
+}
       .content {
         display: flex;
         flex-direction: column;

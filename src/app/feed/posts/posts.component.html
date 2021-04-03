@@ -1,4 +1,10 @@
-<div *ngFor="let post of posts" class="posts fade-in">
+<div class="filter" *ngIf="groups" >
+  <span class="tag filter-group" *ngFor="let group of groups" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="filterByGroup(group, $event)">
+      @{{group.name}}
+  </span>
+</div>
+
+<div *ngFor="let post of postsDisplayed" class="posts fade-in">
     <div class="card">
         <div class="card-content">
           <div class="media">

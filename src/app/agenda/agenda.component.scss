@@ -1,7 +1,9 @@
 @import "../styles/main.scss";
 
-.content {
-    margin: 4rem;
+@media only screen and (min-width: 601px) {
+    .content {
+        margin: 4rem;
+    }
 }
 
 .name {

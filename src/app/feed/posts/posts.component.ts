@@ -32,8 +32,12 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  filterByGroup(group: Group, event) {
-    this.postsDisplayed = this.posts.filter(p => p.group.some(g => g._id === group._id));
+  filterByGroup(group, event) {
+    if (group === 'tous') {
+      this.postsDisplayed = this.posts;
+    } else {
+      this.postsDisplayed = this.posts.filter(p => p.group.some(g => g._id === group._id));
+    }
   } 
 
   // CSS FUNCTION

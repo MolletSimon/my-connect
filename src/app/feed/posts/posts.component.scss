@@ -1,57 +1,23 @@
 @import "../../styles/main.scss";
-
-@media only screen and (max-width: 600px) {
-    .posts {
-        margin-top: 1rem;
-    }
-
-    pre {
-        max-width:   100%;
-        white-space: normal !important;
-    }
-
-    .title.is-4 {
-        font-size: 1rem;
-        font-style: italic;
-    }
-
-    
-}
+@import "./posts.mobile.component.scss";
 
 @media only screen and (min-width: 601px) {
     .posts {
         margin: 1rem 5rem 0 5rem;
-      }
-}
-      
-.filter {
-    margin: 2rem 5rem .3rem 5rem;
-    display: flex;
-    justify-content: center;
-
-    .tag {
-        margin-left: 1rem;
-        cursor: pointer;
-
-        &:hover {
-            opacity: 40%;
-        }
     }
-    
-}
-      .content {
+
+    .filter {
+        margin: 2rem 5rem .3rem 5rem;
         display: flex;
-        flex-direction: column;
-      
-        pre {
-          font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        }
-      }
-      
-      .title {
-        margin-bottom: 0 !important;
-      }
-      
-      .margin-right {
-        margin-right: .6rem;
-      }
+        justify-content: center;
+    
+        .tag {
+            margin-left: 1rem;
+            cursor: pointer;
+    
+            &:hover {
+                opacity: 40%;
+            }
+        } 
+    }
+}

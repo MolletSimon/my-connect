@@ -29,8 +29,9 @@ export class LoginComponent implements OnInit {
         this._router.navigate(['feed'])
         location.reload();
       }, error => {
-        console.log(error)
         this._toastr.error(error.error.message);
+        this._router.navigate(['login']);
+        location.reload();
       });
   }
 

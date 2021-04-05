@@ -1,4 +1,7 @@
 <div class="filter" *ngIf="groups" >
+  <span class="tag filter-group" (click)="filterByGroup('tous', $event)">
+    Tous
+  </span>
   <span class="tag filter-group" *ngFor="let group of groups" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="filterByGroup(group, $event)">
       @{{group.name}}
   </span>

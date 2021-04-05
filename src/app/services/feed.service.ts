@@ -1,3 +1,4 @@
+import { Poll } from './../model/poll';
 import { Group } from './../model/group';
 import { User } from './../model/user';
 import { Post } from './../model/post';
@@ -17,7 +18,7 @@ export class FeedService {
     return this._httpService.get<Post[]>(`${this._apiService.apiUrl}post/get`, this._apiService.httpOptions)
   }
 
-  publish(content, user: User, groups: Group[]): Observable<Post> {
+  publish(content, user: User, groups: Group[], poll?: Poll, isPoll?): Observable<Post> {
     let group = [];
     groups.forEach(g => {
       group.push({
@@ -36,7 +37,9 @@ export class FeedService {
           "firstname": user.firstname,
           "id": user._id
         },
-        "group": group
+        "group": group,
+        "isPoll": isPoll ? isPoll : false,
+        "poll": poll ? poll : {}
       }, this._apiService.httpOptions
       )
   }

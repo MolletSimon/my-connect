@@ -1,4 +1,4 @@
-<div class="publish">
+<div class="publish" *ngIf="!isPoll" >
     <form (ngSubmit)="savePost(f)" #f="ngForm">
         <div class="groups-selected">
             <span class="tag" *ngFor="let group of groupsSelected" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">
@@ -25,11 +25,67 @@
                     </span>
                 </button>
             </div>
+            <div class="poll-button" (click)="openPoll()">
+                <span class="icon is-large">
+                    <i class="fas fa-2x fa-poll"></i>
+                </span>
+            </div>
             <div class="buttons">
                 <button class="button is-active is-light" (click)="addGroup(f.form.value.group)" type="button" [disabled]='!f.form.value.group'>Ajouter un groupe</button>
                 <button class="button is-info is-light" type="submit" [disabled]="f.invalid">Publier</button>
             </div>
         </div>
     </form>
+</div>
+
+<div class="poll fade-in" *ngIf="isPoll" >
+    <div class="box p-5" *ngIf="poll">
+        <div class="groups-selected p-0">
+            <span class="tag" *ngFor="let group of groupsSelected" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">
+                @{{group.name}}
+                <button class="delete is-small" type="button" (click)="removeGroup(group)"></button>
+            </span>
+        </div>
+        <label class="label is-primary">Votre question</label>
+        <input type="text" name="question" placeholder="Entrez le sujet du sondage.." class="input question mt-2" [(ngModel)]="poll.content">
+
+        <div class="answers mt-2 p-2">
+            <label class="label">Les choix</label>
+            <div class="answer mt-1 mb-1" *ngFor="let answer of poll.answers" >
+                <input type="text" class="input is-small" [(ngModel)]= "answer.name" placeholder="Un choix..">
+                <span class="icon is-clickable" (click)="deleteChoice(answer.id)">
+                    <i class="fas fa-times"></i>
+                </span>
+            </div>
+            <button class="button is-primary is-light is-small is-fullwidth" type="button" (click)="addChoice()">Ajouter un choix</button>
+        </div>
+
+        <div class="options">
+            <div class="add-group">
+                <div class="select">
+                    <select id="group" required>
+                        <option hidden value="" disabled selected>Sélectionnez un groupe</option>
+                        <option *ngFor="let g of groups" [value]="g._id">{{g.name}}</option>
+                    </select>
+                </div>
+                <button class="button is-active is-light is-rounded add-mobile" (click)="addGroupToPoll()" type="button">
+                    <span class="icon">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                </button>
+            </div>
+
+            <div class="poll-button" (click)="openPost()">
+                <span class="icon">
+                    <i class="fas fa-pen"></i>
+                </span>
+            </div>
+
+            <div class="buttons">
+                <button class="button is-active is-light" (click)="addGroupToPoll()" type="button">Ajouter un groupe</button>
+                <button class="button is-info is-light" type="button" (click)="savePoll()">Publier</button>
+            </div>     
+        </div>
+    </div>
 </div>
 <app-posts [post]="post" [groups]="groups"></app-posts>

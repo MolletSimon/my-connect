@@ -2,7 +2,7 @@
 @import "./feed.mobile.component.scss";
 
 @media only screen and (min-width: 601px) {
-    .publish {
+    .publish, .poll {
         margin: 0 20rem 0 20rem;
     }
 
@@ -22,10 +22,22 @@
         margin-top: 1rem;
         display: flex;
         justify-content: flex-end;
+        align-items: center;
     
         div {
             margin-left: 1rem;
         }
+    }
+
+    .answer {
+        display: flex;
+        align-items: center;
+    }
+
+    .poll-button {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
     }
     
     .select {

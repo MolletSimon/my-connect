@@ -12,6 +12,9 @@
 		</div>
 		<div class="search-bar column is-6">
 			<input type="text" placeholder="Rechercher.." class="input" (input)="search($event.target.value)">
+			<span class="icon add-user ml-3" (click)="openModal('modal-add-user')">
+				<i class="fas fa-user-plus"></i>
+			</span>
 		</div>
 		<div class="add-btn column is-3">
 			<button class="button is-primary" type="button" (click)="openModal('modal-add-user')">Ajouter un utilisateur</button>

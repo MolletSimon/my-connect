@@ -1,0 +1,39 @@
+.card {
+    margin: 1.5rem;
+}
+
+.red {
+    color: rgb(210, 48, 48)
+}
+
+.card-header-title {
+    justify-content: center !important;
+}
+
+.card-footer-item {
+    text-align: center;
+}
+
+.add-btn {
+    display: none;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin: 0 2rem 0 2rem;
+}
+
+.sort-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+
+    .select {
+        width: 70%;
+        select {
+            width: 100%;
+        }
+    }
+}

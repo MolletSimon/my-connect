@@ -1,55 +1,55 @@
 @import "../styles/main.scss";
+@import "./users.mobile.component.scss";
 
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-        ". . .";
-    margin: 4rem;
-}
-.card-header-title {
-     justify-content: center !important;
- }
+@media only screen and (min-width: 601px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        gap: 0px 0px;
+        grid-template-areas:
+            ". . .";
+        margin: 4rem;
+    }
 
-.phone {
-    display: flex;
-}
+    .add-btn {
+        display: block;
+    }
 
-.sort-group {
-    display: flex;
-    justify-content: flex-end;
-}
+    .phone {
+        display: flex;
+    }
 
-.control {
-    margin-bottom: 1rem;
-}
+    .sort-group {
+        display: flex;
+        justify-content: flex-end;
+    }
 
-.card {
-    margin: 1rem;
-}
+    .control {
+        margin-bottom: 1rem;
+    }
 
-.red {
-    color: rgb(210, 48, 48)
-}
+    .add-user {
+        display: none;
+    }
 
-.add-group-select {
-    .select {
-        width: 100%;
-        select {
+    .add-group-select {
+        .select {
             width: 100%;
+            select {
+                width: 100%;
+            }
         }
     }
-}
 
-.card {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 0.5fr 2fr 0.5fr;
-    gap: 0px 0px;
-    grid-template-areas:
-      "."
-      "."
-      ".";
+    .card {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.5fr 2fr 0.5fr;
+        gap: 0px 0px;
+        grid-template-areas:
+        "."
+        "."
+        ".";
+    }
 }

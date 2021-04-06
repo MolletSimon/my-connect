@@ -31,7 +31,6 @@ export class EditComponent implements OnInit {
   }
 
   saveInfos(f: NgForm) {
-    console.log(f.value)
     this.userUpdated = {
       "_id": this.user._id,
       "firstname": f.value.firstname ? f.value.firstname : this.user.firstname,

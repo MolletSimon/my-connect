@@ -9,7 +9,7 @@
 
 <div *ngFor="let post of postsDisplayed" class="posts fade-in">
     <div class="card">
-        <div class="card-content">
+        <div class="card-content" *ngIf="!post.isPoll">
           <div class="media">
             <div class="media-left">
               <figure class="image is-48x48">
@@ -27,6 +27,76 @@
           <div class="content">
             <pre>{{post.content}}</pre>
             <time>{{post.date | date : 'medium'}}</time>
+          </div>
+        </div>
+
+        <div class="card-content" *ngIf="post.isPoll">
+          <div class="media">
+            <div class="media-left">
+              <figure class="image is-48x48">
+                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+              </figure>
+            </div>
+            <div class="media-content">
+              <p class="title is-4">{{post.user.firstname}} {{post.user.lastname}}</p>
+              <ng-container *ngFor="let group of post.group">
+                <p class="tag margin-right" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">@{{group.name}}</p>
+              </ng-container>
+            </div>
+            <div class="media-right">
+              <p>Ce post est un sondage, pour sélectionner plusieurs options restez appuyés sur CTRL (ou "command" sur Mac)</p>
+            </div>
+          </div>
+      
+          <div class="content" *ngIf="!post.poll.hasVoted" >
+            <pre>
+              <h2>{{post.poll.content}}</h2>
+              <div class="select is-multiple" id="answers">
+                <select id="votes" multiple [size]="post.poll.answers.length">
+                  <option class="is-rounded" *ngFor="let answer of post.poll.answers" [value]="answer.id">{{answer.name}} - {{answer.nbVote}} vote(s)</option>
+                </select>
+              </div>
+            </pre>
+            <div class="vote-button mt-2">
+              <time>{{post.date | date : 'medium'}}</time>
+              <button class="button is-light is-primary" (click)="vote(post)">Voter !</button>
+            </div>
+          </div>
+
+          <div class="content" *ngIf="post.poll.data" >
+            <pre>
+              <h2>{{post.poll.content}}</h2>
+              <div class="charts">
+                <ngx-charts-bar-vertical
+                [view]="view"
+                [scheme]="colorScheme"
+                [results]="post.poll.data"
+                [gradient]="false"
+                [xAxis]="true"
+                [yAxis]="true"
+                [legend]="false"
+                [showXAxisLabel]="true"
+                [showYAxisLabel]="true"
+                [xAxisLabel]="xAxisLabel"
+                [yAxisLabel]="yAxisLabel"
+                [showGridLines]="false"
+                [roundDomains]="true"
+                (select)="onSelect($event)">
+                <ng-template #tooltipTemplate let-model="model">
+                  <h1>
+                    Nombre de votes : {{ model.value }}
+                  </h1>
+                  <div class="user-who-voted" *ngFor="let user of post.poll.answers[model.extra.id - 1].usersWhoVoted" >
+                    {{user.firstname}} {{user.lastname}} a voté pour cette option
+                  </div>
+                </ng-template>
+                </ngx-charts-bar-vertical>
+              </div>
+              
+            </pre>
+            <div class="vote-button mt-2">
+              <time>{{post.date | date : 'medium'}}</time>
+            </div>
           </div>
         </div>
       </div>

@@ -43,4 +43,12 @@ export class FeedService {
       }, this._apiService.httpOptions
       )
   }
+
+  vote(poll: Poll, id: string): Observable<any> {
+    return this._httpService.put<any>(`${this._apiService.apiUrl}post/update/${id}`, 
+      {
+        "poll": poll
+      }, this._apiService.httpOptions
+      )
+  }
 }

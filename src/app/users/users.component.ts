@@ -68,7 +68,6 @@ export class UsersComponent implements OnInit {
 	}
 
 	saveForm(f: NgForm) {
-		console.log(f)
 		this._usersService.addUser(f.form.value)
 			.subscribe(user => {
 				this._toastr.success(`L'utilisateur ${user.firstname} a bien été ajouté`);
@@ -138,7 +137,6 @@ export class UsersComponent implements OnInit {
 	}
 
 	addOneGroup(id) {
-		console.log(id)
 		this.groupsAdded.push(this.groups.find(g => g._id === id));
 	}
 

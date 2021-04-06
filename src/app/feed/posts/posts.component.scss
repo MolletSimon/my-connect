@@ -6,6 +6,15 @@
         margin: 1rem 5rem 0 5rem;
     }
 
+    .media-right {
+        display: block;
+    }
+
+    .charts {
+        display: flex;
+        justify-content: center;
+    }
+
     .filter {
         margin: 2rem 5rem .3rem 5rem;
         display: flex;
@@ -20,4 +29,26 @@
             }
         } 
     }
+
+    .vote-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .media {
+        align-items: center;
+
+        p {
+            font-style: italic;
+        }
+    }
+
+    #answers {
+        width: 100%;
+
+        select {
+            width: 100%;
+        }
+    } 
 }

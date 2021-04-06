@@ -1,5 +1,6 @@
+import { Poll } from './poll';
 export interface Post {
-    id: string;
+    _id: string;
     content: string;
     user: {
         id: string;
@@ -12,4 +13,6 @@ export interface Post {
         color: string;
     }]
     date: Date;
+    isPoll: boolean;
+    poll: Poll
 }

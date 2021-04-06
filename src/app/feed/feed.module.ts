@@ -4,6 +4,7 @@ import { FeedRoutingModule } from './feed-routing.module';
 import { FeedComponent } from './feed.component';
 import { PostsComponent } from './posts/posts.component';
 import { FormsModule } from '@angular/forms';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FeedRoutingModule,
-    FormsModule
+    FormsModule,
+    NgxChartsModule
   ]
 })
 export class FeedModule { }

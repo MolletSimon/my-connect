@@ -52,9 +52,19 @@ export class FeedComponent implements OnInit {
 	}
 
 	savePoll() {
+		if (this.groupsSelected.length > 0) {
+			this.groupsSelected;
+		} else {
+			let group = this.groups.find(g => g._id == (<HTMLSelectElement>document.getElementById("group")).value)
+			this.groupsSelected.push(group);
+		}
+
 		this._feedService.publish("", this.user, this.groupsSelected, this.poll, true)
 			.subscribe(result => {
-				console.log(result);
+				this.post.next();
+				this.isPoll = false;
+				this.groupsSelected = [];
+				this._toastr.info("Sondage publié !");
 			})
 	}
 
@@ -80,10 +90,11 @@ export class FeedComponent implements OnInit {
 				name: "",
 				nbVote: 0
 			}, {
-				id: this.i + 2,
+				id: this.i + 1,
 				name: "",
 				nbVote: 0
-			}]
+			}],
+			hasVoted: false
 		} as unknown as Poll;
 		this.i = 3;
 		this.isPoll = true;
@@ -102,7 +113,8 @@ export class FeedComponent implements OnInit {
 		this.poll.answers.push({
 			name: "",
 			nbVote: 0,
-			id: this.i
+			id: this.i,
+			usersWhoVoted: []
 		});
 		this.i++;
 	}

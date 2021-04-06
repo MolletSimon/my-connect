@@ -3,6 +3,9 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FeedService } from 'src/app/services/feed.service';
 import { Subject } from 'rxjs';
 import { Group } from 'src/app/model/group';
+import { Poll } from 'src/app/model/poll';
+import { User } from 'src/app/model/user';
+declare var $: any;
 
 @Component({
   selector: 'app-posts',
@@ -14,12 +17,20 @@ export class PostsComponent implements OnInit {
   public postsDisplayed: Post[];
   @Input() post: Subject<any>;
   @Input() groups: Group[];
+  @Input() user: User;
+  poll: Poll;
+  xAxisLabel = "Réponses";
+  yAxisLabel = "Votants";
+  view: any[] = [700, 400];
+  yAxisTicks = [1, 2, 3, 4, 5];
+  colorScheme = {
+    domain: ['#54428E', '#8963BA', '#AFE3C0', '#90C290', '#688B58']
+  };
   
   constructor(private _feedService: FeedService) { }
 
   ngOnInit(): void {
     this.getPosts();
-
     this.post.subscribe(() => {
       this.getPosts();
     })
@@ -29,7 +40,36 @@ export class PostsComponent implements OnInit {
     this._feedService.getPosts().subscribe(result => {
       this.posts = result
       this.postsDisplayed = result;
+      this.checkIfUserVoted();
+      this.preparePoll();
     });
+  }
+
+  preparePoll() {
+    this.posts.forEach(post => {
+      if(post.isPoll) {
+        if (post.poll.hasVoted) {
+          post.poll.data = [];
+          post.poll.answers.forEach(answer => {
+            post.poll.data.push({name: answer.name, value: answer.nbVote, extra: {id: answer.id}})
+          })
+        }
+      }
+    })
+  }
+
+  checkIfUserVoted() {
+    this.posts.forEach(post => {
+      if(post.isPoll) {
+        post.poll.answers.forEach(answer => {
+          answer.usersWhoVoted.forEach(user => {
+            if (user._id === this.user._id) {
+              post.poll.hasVoted = true;
+            }
+          })
+        })
+      }
+    })
   }
 
   filterByGroup(group, event) {
@@ -39,6 +79,26 @@ export class PostsComponent implements OnInit {
       this.postsDisplayed = this.posts.filter(p => p.group.some(g => g._id === group._id));
     }
   } 
+
+  onSelect(event) {
+  }
+
+  vote(post: Post) {
+    this.poll = post.poll;
+    this.poll.answers.forEach(a => {
+      for (let i = 0; i < $("#votes").val().length; i++) {
+        let value = $("#votes").val()[i];
+        if (a.id == value) {
+          a.nbVote++;
+          a.usersWhoVoted.push(this.user)
+        }
+      }
+    });
+    this._feedService.vote(this.poll, post._id)
+      .subscribe(() => {
+        this.post.next();
+      })
+  }
 
   // CSS FUNCTION
   addAlpha(color: string, opacity: number): string {

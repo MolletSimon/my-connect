@@ -19,16 +19,21 @@
                         <option *ngFor="let g of groups" [ngValue]="g">{{g.name}}</option>
                     </select>
                 </div>
-                <button class="button is-active is-light is-rounded add-mobile" (click)="addGroup(f.form.value.group)" type="button" [disabled]='!f.form.value.group'>
+                <div class="add-mobile" (click)="addGroup(f.form.value.group)">
                     <span class="icon">
                         <i class="fas fa-plus"></i>
                     </span>
-                </button>
-            </div>
-            <div class="poll-button" (click)="openPoll()">
-                <span class="icon is-large">
-                    <i class="fas fa-2x fa-poll"></i>
-                </span>
+                </div>
+                <div class="poll-button" (click)="openPoll()">
+                    <span class="icon">
+                        <i class="fas fa-poll"></i>
+                    </span>
+                </div>
+                <div class="mobile-filter" (click)="openFilter()">
+                    <span class="icon">
+                        <i class="fas fa-filter"></i>
+                    </span>
+                </div>
             </div>
             <div class="buttons">
                 <button class="button is-active is-light" (click)="addGroup(f.form.value.group)" type="button" [disabled]='!f.form.value.group'>Ajouter un groupe</button>
@@ -68,17 +73,21 @@
                         <option *ngFor="let g of groups" [value]="g._id">{{g.name}}</option>
                     </select>
                 </div>
-                <button class="button is-active is-light is-rounded add-mobile" (click)="addGroupToPoll()" type="button">
+                <div class="add-mobile" (click)="addGroupToPoll()">
                     <span class="icon">
                         <i class="fas fa-plus"></i>
                     </span>
-                </button>
-            </div>
-
-            <div class="poll-button" (click)="openPost()">
-                <span class="icon">
-                    <i class="fas fa-pen"></i>
-                </span>
+                </div>
+                <div class="poll-button" (click)="openPost()">
+                    <span class="icon">
+                        <i class="fas fa-pen"></i>
+                    </span>
+                </div>
+                <div class="publish-poll-button-mobile" (click)="savePoll()">
+                    <span class="icon">
+                        <i class="fas fa-share"></i>
+                    </span>
+                </div>
             </div>
 
             <div class="buttons">

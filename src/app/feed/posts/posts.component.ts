@@ -30,6 +30,7 @@ export class PostsComponent implements OnInit {
   constructor(private _feedService: FeedService) { }
 
   ngOnInit(): void {
+    this.viewMobile();
     this.getPosts();
     this.post.subscribe(() => {
       this.getPosts();
@@ -43,6 +44,12 @@ export class PostsComponent implements OnInit {
       this.checkIfUserVoted();
       this.preparePoll();
     });
+  }
+
+  viewMobile() {
+    if (window.matchMedia("(max-width: 600px)").matches) {
+      this.view = [300, 300];
+    }
   }
 
   preparePoll() {

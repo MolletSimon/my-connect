@@ -135,6 +135,14 @@ export class FeedComponent implements OnInit {
 		this.groupsSelected = this.groupsSelected.filter(g => g._id != group._id);
 	}
 
+	openFilter() {
+		if(document.getElementById("filter").style.display == "grid") {
+			document.getElementById("filter").style.display = "none";
+		} else {
+			document.getElementById("filter").style.display = "grid";
+		}		
+	}
+
 	addAlpha(color: string, opacity: number): string {
 		// coerce values so ti is between 0 and 1.
 		const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);

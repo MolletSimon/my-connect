@@ -1,9 +1,11 @@
-<div class="form-signup m-5">
-    <form>
+<div class="form-signup box">
+    <form (ngSubmit)="saveForm(f)" #f="ngForm">
+        <h1 class="title has-text-centered mb-1 p-5">Bonjour ! 😃 Veuillez rentrer vos informations</h1>
+        <hr>
         <div class="field">
             <label class="label">Nom</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input" type="text" placeholder="Nom de famille">
+              <input class="input" type="text" placeholder="Nom de famille" name="lastname" ngModel required>
               <span class="icon is-small is-left">
                 <i class="fas fa-signature"></i>
               </span>
@@ -13,7 +15,7 @@
           <div class="field">
             <label class="label">Prénom</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input" type="text" placeholder="Text input">
+              <input class="input" type="text" placeholder="Prénom" name="firstname" ngModel required>
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
@@ -23,17 +25,45 @@
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input" type="email" placeholder="Adresse Email">
+              <input class="input" type="email" 
+              placeholder="Adresse Email" name="mail" 
+              ngModel required
+              [ngClass]="{'is-danger': mailAlreadyExist}">
               <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
+              </span>
+              <p class="help is-danger" *ngIf="mailAlreadyExist" >L'adresse e-mail est déjà utilisé !</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Téléphone</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="tel" placeholder="Numéro de téléphone" name="phone" ngModel required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-phone"></i>
               </span>
             </div>
           </div>
           
           <div class="field">
-            <label class="label">Message</label>
-            <div class="control">
-              <textarea class="textarea" placeholder="Textarea"></textarea>
+            <label class="label">Mot de passe</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="password" placeholder="**************" name="password" ngModel required>
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">Confirmation mot de passe</label>
+            <div class="control has-icons-left has-icons-right">
+              <input class="input" type="password" placeholder="***************" 
+              name="confirmPassword" ngModel required [ngClass]="{'is-danger': f.value.password != f.value.confirmPassword}">
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
             </div>
           </div>
           
@@ -41,30 +71,17 @@
             <div class="control">
               <label class="checkbox">
                 <input type="checkbox">
-                I agree to the <a href="#">terms and conditions</a>
+                    J'accepte les <a href="#">conditions d'utilisations</a>
               </label>
             </div>
           </div>
           
-          <div class="field">
+          <div class="field is-grouped is-grouped-right">
             <div class="control">
-              <label class="radio">
-                <input type="radio" name="question">
-                Yes
-              </label>
-              <label class="radio">
-                <input type="radio" name="question">
-                No
-              </label>
-            </div>
-          </div>
-          
-          <div class="field is-grouped">
-            <div class="control">
-              <button class="button is-link">Submit</button>
+              <button class="button is-primary" [disabled]="!users || f.invalid" type="submit">S'inscrire</button>
             </div>
             <div class="control">
-              <button class="button is-link is-light">Cancel</button>
+              <button class="button is-primary is-light" type="button" (click)="cancel()">Annuler</button>
             </div>
           </div>
     </form>

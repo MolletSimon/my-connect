@@ -13,7 +13,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { EditComponent } from './user/edit/edit.component';
-import { SignupComponent } from './user/signup/signup.component';
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -21,8 +20,7 @@ registerLocaleData(localeFr);
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    EditComponent,
-    SignupComponent
+    EditComponent
   ],
   imports: [
     BrowserModule,

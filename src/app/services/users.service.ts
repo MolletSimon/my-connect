@@ -46,4 +46,8 @@ export class UsersService {
 	updateUser(user: User): Observable<any> {
 		return this._httpClient.put<any>(`${this._apiService.apiUrl}user/update/${user._id}`, user ,this._apiService.httpOptions)
 	}
+
+	getMails(): Observable<User[]> {
+		return this._httpClient.get<User[]>(`${this._apiService.apiUrl}user/get/mails`, this._apiService.httpOptions);
+	}
 }

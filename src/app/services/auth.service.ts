@@ -21,4 +21,8 @@ export class AuthService {
       "password": password
     }, this._apiService.httpOptions)
   }
+
+  signUp(user: User): Observable<any> {
+    return this._httpService.post<any>(`${this._apiService.apiUrl}user/signup`, user, this._apiService.httpOptions)
+  }
 }

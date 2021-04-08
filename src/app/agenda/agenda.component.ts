@@ -1,3 +1,4 @@
+import { User } from './../model/user';
 import { AppointmentService } from './../services/appointment.service';
 import { GroupService } from './../services/group.service';
 import { Subject, Observable } from 'rxjs';
@@ -9,6 +10,7 @@ import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { Group } from '../model/group';
 import { Appointment } from '../model/appointment';
 import { ToastrService } from 'ngx-toastr';
+import jwt_decode from "jwt-decode";
 
 //import the loadCldr from ej2-base
 import { loadCldr, L10n } from '@syncfusion/ej2-base';
@@ -137,6 +139,8 @@ export class AgendaComponent implements OnInit {
     public setViewMobile: View = 'Agenda';
     public setDate: Date = new Date();
     public eventObject: EventSettingsModel;
+    
+    user: User
 
     constructor(
         private _groupService: GroupService,
@@ -146,12 +150,17 @@ export class AgendaComponent implements OnInit {
 
     // --------------------- BUILD --------------------- //
     ngOnInit(): void {
+        this.getCurrentUser();
         this.getGroups();
         this.getAppointments();
     }
 
+    getCurrentUser() {
+		this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
+	}
+    
     getGroups() {
-        this._groupService.getGroups()
+        this._groupService.getGroups(this.user)
             .subscribe(groups => {
                 this.groups = groups;
                 this.groups.forEach(group => {

@@ -38,7 +38,7 @@ export class PostsComponent implements OnInit {
   }
 
   getPosts() {
-    this._feedService.getPosts().subscribe(result => {
+    this._feedService.getPosts(this.user).subscribe(result => {
       this.posts = result
       this.postsDisplayed = result;
       this.checkIfUserVoted();

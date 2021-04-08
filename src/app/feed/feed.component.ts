@@ -73,7 +73,7 @@ export class FeedComponent implements OnInit {
 	}
 
 	getGroups() {
-		this._groupService.getGroups()
+		this._groupService.getGroups(this.user)
 			.subscribe(groups => this.groups = groups)
 	}
 

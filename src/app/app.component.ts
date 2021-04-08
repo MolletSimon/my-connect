@@ -1,5 +1,7 @@
+import { User } from './model/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import jwt_decode from "jwt-decode";
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   userInitialized = false;
+  user: User;
 
   constructor(private _router: Router) {}
 
@@ -21,7 +24,7 @@ export class AppComponent implements OnInit{
       this.userInitialized = false;
     } else {
       this.userInitialized = true;
-      
+      this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
     }
   }
 }

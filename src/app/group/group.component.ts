@@ -24,12 +24,12 @@ export class GroupComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.getGroups();
     this.getCurrentUser();
+    this.getGroups();
   }
 
   getGroups() {
-    this._groupService.getGroups()
+    this._groupService.getGroups(this.user)
       .subscribe(
         groups => this.groups = groups,
         err => console.error(err)

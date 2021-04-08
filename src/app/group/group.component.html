@@ -1,106 +1,108 @@
-<h4 class="text-info">{{user.firstname}}, vous faites partie des groupes suivants</h4>
-<div class="card fade-in desktop" *ngFor="let group of groups" >
-    <progress class="progress is-small is-danger" max="100" *ngIf="progress" ></progress>
-    <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.5)}">
-        <div class="card-header-title">
-            {{group.name}}
-        </div>
-        <div class="responsable">
-            <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.1)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
-        </div>
-        <div class="buttons">
-            <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="delete(group._id)">Supprimer</button>
-            <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">Inviter</button>
-        </div>
-    </header>
-</div>
+<ng-container *ngIf="user.groups.length > 0" >
+    <h4 class="text-info">{{user.firstname}}, vous faites partie des groupes suivants</h4>
+    <div class="card fade-in desktop" *ngFor="let group of groups" >
+        <progress class="progress is-small is-danger" max="100" *ngIf="progress" ></progress>
+        <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.5)}">
+            <div class="card-header-title">
+                {{group.name}}
+            </div>
+            <div class="responsable">
+                <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.1)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
+            </div>
+            <div class="buttons">
+                <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="delete(group._id)">Supprimer</button>
+                <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">Inviter</button>
+            </div>
+        </header>
+    </div>
 
-<div class="card fade-in mobile mb-5" *ngFor="let group of groups" >
-    <progress class="progress is-small is-danger" max="100" *ngIf="progress" ></progress>
-    <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.5)}">
-        <div class="card-header-title center">
-            <p>{{group.name}}</p>
-        </div>
-    </header>
-    <div class="card-content" [ngStyle]="{'background-color': addAlpha(group.color, 0.5)}">
-        <div class="responsable">
-            <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.1)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
-        </div>
-        <div class="buttons">
-            <button class="button" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="delete(group._id)">Supprimer</button>
-            <button class="button" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">Inviter</button>
+    <div class="card fade-in mobile mb-5" *ngFor="let group of groups" >
+        <progress class="progress is-small is-danger" max="100" *ngIf="progress" ></progress>
+        <header class="card-header" [ngStyle]="{'background-color': addAlpha(group.color, 0.5)}">
+            <div class="card-header-title center">
+                <p>{{group.name}}</p>
+            </div>
+        </header>
+        <div class="card-content" [ngStyle]="{'background-color': addAlpha(group.color, 0.5)}">
+            <div class="responsable">
+                <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.1)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
+            </div>
+            <div class="buttons">
+                <button class="button" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="delete(group._id)">Supprimer</button>
+                <button class="button" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">Inviter</button>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="progress-spinner fade-in" *ngIf="!groups" >
-    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-</div> 
+    <div class="progress-spinner fade-in" *ngIf="!groups" >
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div> 
 
-<div id="add-btn-div" class="fade-in">
-    <button class="button is-fullwidth is-primary is-outlined p-2" id="add-btn" (click)="addGroup()">Ajouter un groupe</button>
-</div> 
+    <div id="add-btn-div" class="fade-in">
+        <button class="button is-fullwidth is-primary is-outlined p-2" id="add-btn" (click)="addGroup()">Ajouter un groupe</button>
+    </div> 
 
 
-<div class="modal fade-in" id="modal-add-group">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-        <form (ngSubmit)="saveGroup(f)" #f="ngForm">
-            <header class="modal-card-head">
-                <p class="modal-card-title">Ajouter un groupe</p>
-                <button class="delete" aria-label="close" type="reset" (click)="closeModal('modal-add-group')"></button>
-            </header>
-            <progress class="progress is-small is-primary" max="100" *ngIf="progress" ></progress>
-            <section class="modal-card-body">
-                <label class="label">Nom du groupe</label>
-                <div class="control has-icons-left has-icons-right" id="group-name">
-                    <input class="input" type="text" placeholder="Nom du groupe" ngModel name="groupName" required>
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-users"></i>
-                    </span>
-                </div>
-                <label class="label">Couleur du groupe</label>
-                <div class="control">
-                    <color-circle (onChangeComplete)="changeComplete($event)" width="100%"></color-circle>
-                </div>
-                <hr class="solid">
-                <span class="tag is-primary is-light">Responsable</span>
-                <div class="responsable-add">
-                    <div class="field">
-                        <label class="label">Nom</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input" type="text" placeholder="Nom du responsable" ngModel name="responsableName" required>
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                            </span>
+    <div class="modal fade-in" id="modal-add-group">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form (ngSubmit)="saveGroup(f)" #f="ngForm">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Ajouter un groupe</p>
+                    <button class="delete" aria-label="close" type="reset" (click)="closeModal('modal-add-group')"></button>
+                </header>
+                <progress class="progress is-small is-primary" max="100" *ngIf="progress" ></progress>
+                <section class="modal-card-body">
+                    <label class="label">Nom du groupe</label>
+                    <div class="control has-icons-left has-icons-right" id="group-name">
+                        <input class="input" type="text" placeholder="Nom du groupe" ngModel name="groupName" required>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-users"></i>
+                        </span>
+                    </div>
+                    <label class="label">Couleur du groupe</label>
+                    <div class="control">
+                        <color-circle (onChangeComplete)="changeComplete($event)" width="100%"></color-circle>
+                    </div>
+                    <hr class="solid">
+                    <span class="tag is-primary is-light">Responsable</span>
+                    <div class="responsable-add">
+                        <div class="field">
+                            <label class="label">Nom</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input" type="text" placeholder="Nom du responsable" ngModel name="responsableName" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Prénom</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input" type="text" placeholder="Prénom du responsable" ngModel name="responsableFirstname" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Téléphone</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input" type="tel" placeholder="Tel du responsable" ngModel name="responsablePhone" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-phone"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="field">
-                        <label class="label">Prénom</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input" type="text" placeholder="Prénom du responsable" ngModel name="responsableFirstname" required>
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-user"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label class="label">Téléphone</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input" type="tel" placeholder="Tel du responsable" ngModel name="responsablePhone" required>
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-phone"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <footer class="modal-card-foot">
-                <button class="button is-primary" type="submit" [disabled]="f.invalid">Ajouter</button>
-                <button class="button" (click)="closeModal('modal-add-group')" type="reset">Annuler</button>
-            </footer>
-        </form>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-primary" type="submit" [disabled]="f.invalid">Ajouter</button>
+                    <button class="button" (click)="closeModal('modal-add-group')" type="reset">Annuler</button>
+                </footer>
+            </form>
+        </div>
     </div>
-</div>
+</ng-container>

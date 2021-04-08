@@ -13,9 +13,14 @@ import { Observable } from 'rxjs';
 export class FeedService {
   constructor(private _httpService: HttpClient, private _apiService: ApiService) { }
 
-  getPosts(): Observable<Post[]> {
-    console.log(this._apiService.httpOptions)
-    return this._httpService.get<Post[]>(`${this._apiService.apiUrl}post/get`, this._apiService.httpOptions)
+  getPosts(user: User): Observable<Post[]> {
+    let body = {
+      "ids": []
+    };
+    user.groups.forEach(group => {
+      body.ids.push(group._id);
+    })
+    return this._httpService.post<Post[]>(`${this._apiService.apiUrl}post/get`, body, this._apiService.httpOptions)
   }
 
   publish(content, user: User, groups: Group[], poll?: Poll, isPoll?): Observable<Post> {

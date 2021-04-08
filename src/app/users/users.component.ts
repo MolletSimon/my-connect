@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
+import jwt_decode from "jwt-decode";
 
 @Component({
 	selector: 'app-users',
@@ -16,7 +17,7 @@ export class UsersComponent implements OnInit {
 	public usersDisplayed: User[];
 	public groups: Group[];
 	public groupsAdded: Group[] = [];
-	
+	user: User;
 	private idUser: string;
 
 	constructor(
@@ -26,8 +27,13 @@ export class UsersComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		this.getCurrentUser();
 		this.getUsers();
 		this.getGroups();
+	}
+
+	getCurrentUser() {
+		this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
 	}
 
 	getUsers() {
@@ -41,7 +47,7 @@ export class UsersComponent implements OnInit {
 	}
 
 	getGroups() {
-		this._groupService.getGroups()
+		this._groupService.getGroups(this.user)
 			.subscribe(groups => {
 				this.groups = groups
 			}, error => {
@@ -152,3 +158,4 @@ export class UsersComponent implements OnInit {
 			})
 	}
 }
+

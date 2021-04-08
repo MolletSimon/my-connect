@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Group } from './../model/group';
 import { GroupService } from './../services/group.service';
 import { UsersService } from './../services/users.service';
@@ -23,17 +24,26 @@ export class UsersComponent implements OnInit {
 	constructor(
 		private _usersService: UsersService,
 		private _toastr: ToastrService,
-		private _groupService: GroupService
+		private _groupService: GroupService,
+		private _router: Router
 	) { }
 
 	ngOnInit(): void {
 		this.getCurrentUser();
+		this.checkSuperAdmin();
 		this.getUsers();
 		this.getGroups();
 	}
 
 	getCurrentUser() {
 		this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
+	}
+
+	checkSuperAdmin() {
+		if (!this.user.isSuperadmin) {
+			this._router.navigate(['feed']);
+			return;
+		}
 	}
 
 	getUsers() {

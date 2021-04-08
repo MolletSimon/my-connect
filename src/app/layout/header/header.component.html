@@ -9,7 +9,7 @@
         <li><a routerLink="/group" routerLinkActive="active" class="anim-link">Mes groupes</a></li>
         <li><a routerLink="/agenda" routerLinkActive="active" class="anim-link">Agenda</a></li>
         <li><a routerLink="/drive" routerLinkActive="active" class="anim-link">Drive</a></li>
-        <li><a routerLink="/users" routerLinkActive="active" class="anim-link">Gérer les utilisateurs</a></li>
+        <li><a routerLink="/users" routerLinkActive="active" class="anim-link" *ngIf="user.isSuperadmin" >Gérer les utilisateurs</a></li>
         <li *ngIf="user" >
             <div class="dropdown is-hoverable">
                 <div class="dropdown-trigger">
@@ -76,7 +76,7 @@
         <!-- <li><a routerLink="/drive" routerLinkActive="is-active"><span class="icon">
           <i class="fas fa-hdd"></i>
         </span></a></li> -->
-        <li><a routerLink="/users" routerLinkActive="is-active"><span class="icon">
+        <li *ngIf="user.isSuperadmin"><a routerLink="/users" routerLinkActive="is-active"><span class="icon">
           <i class="fas fa-users"></i>
         </span></a></li>
     </ul>

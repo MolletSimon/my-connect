@@ -9,7 +9,7 @@
             <div class="responsable">
                 <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.1)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
             </div>
-            <div class="buttons">
+            <div class="buttons" *ngIf="user.isSuperadmin" >
                 <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="delete(group._id)">Supprimer</button>
                 <button class="button is-rounded" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">Inviter</button>
             </div>
@@ -27,7 +27,7 @@
             <div class="responsable">
                 <span class="tag" [ngStyle]="{'background-color': addAlpha(group.color, 0.1)}">{{group.responsable.firstname}} {{group.responsable.lastname}} -  {{group.responsable.phone}}</span>
             </div>
-            <div class="buttons">
+            <div class="buttons" *ngIf="user.isSuperadmin" >
                 <button class="button" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="delete(group._id)">Supprimer</button>
                 <button class="button" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">Inviter</button>
             </div>
@@ -39,7 +39,7 @@
     </div> 
 
     <div id="add-btn-div" class="fade-in">
-        <button class="button is-fullwidth is-primary is-outlined p-2" id="add-btn" (click)="addGroup()">Ajouter un groupe</button>
+        <button class="button is-fullwidth is-primary is-outlined p-2" id="add-btn" (click)="addGroup()" *ngIf="user.isSuperadmin" >Ajouter un groupe</button>
     </div> 
 
 

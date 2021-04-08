@@ -12,12 +12,21 @@
         margin: 4rem;
     }
 
+    .sort-group {
+        margin-top: 0;
+    }
+
     .add-btn {
         display: block;
     }
 
     .phone {
         display: flex;
+    }
+
+    .columns {
+        display: flex;
+        align-items: center;
     }
 
     .sort-group {

@@ -15,7 +15,8 @@ export class FeedService {
 
   getPosts(user: User): Observable<Post[]> {
     let body = {
-      "ids": []
+      "ids": [],
+      "isSuperadmin": user.isSuperadmin
     };
     user.groups.forEach(group => {
       body.ids.push(group._id);

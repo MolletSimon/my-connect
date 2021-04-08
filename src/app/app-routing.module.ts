@@ -1,3 +1,4 @@
+import { SignupComponent } from './user/signup/signup.component';
 import { EditComponent } from './user/edit/edit.component';
 import { LoginComponent } from './user/login/login.component';
 import { FeedComponent } from './feed/feed.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'agenda', loadChildren: () => import('./agenda/agenda.module').then(m => m.AgendaModule) },
   { path: 'drive', loadChildren: () => import('./drive/drive.module').then(m => m.DriveModule) },
   { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
-  { path: 'user', component: EditComponent}
+  { path: 'user', component: EditComponent},
+  { path: 'signup', component: SignupComponent}
 ];
 
 @NgModule({

@@ -1,10 +1,7 @@
-@import "../../styles/main.scss";
+@import "./edit.mobile.component.scss";
 
-.box {
-    margin: 2rem 10rem 0 10rem;
-}
-
-.hello {
-    font-style: italic;
-    color: $primary;
+@media only screen and (min-width: 601px) {
+    .box {
+        margin: 2rem 10rem 0 10rem;
+    }
 }

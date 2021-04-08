@@ -21,6 +21,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  signUp() {
+    this._router.navigate(['signup']);
+  }
+
   login() {
     this.loading = true;
     if (this.mail && this.password)

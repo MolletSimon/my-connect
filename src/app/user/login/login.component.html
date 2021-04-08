@@ -26,6 +26,9 @@
   </div>
   <div class="field is-grouped is-grouped-right">
     <p class="control">
+      <button class="button is-primary is-inverted" (click)="signUp()">
+        S'inscrire
+      </button>
       <button class="button is-primary" (click)="login()" *ngIf="!loading" >
         Se connecter
       </button>

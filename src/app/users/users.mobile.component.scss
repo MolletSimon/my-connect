@@ -37,3 +37,29 @@
         }
     }
 }
+
+.add-group-select {
+    .select {
+        width: 100%;
+        select {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .modal-card {
+        margin: 0 !important;
+    }
+
+    .modal-card-body {
+        div {
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .modal-card-foot {
+        display: flex;
+        justify-content: center;
+    }
+}

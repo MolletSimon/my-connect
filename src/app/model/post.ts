@@ -14,5 +14,6 @@ export interface Post {
     }]
     date: Date;
     isPoll: boolean;
-    poll: Poll
+    poll: Poll;
+    isPined: boolean;
 }

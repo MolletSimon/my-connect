@@ -22,6 +22,14 @@
                 <p class="tag margin-right" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">@{{group.name}}</p>
               </ng-container>
             </div>
+            <div class="media-right">
+              <span class="icon ml-3 is-clickable" *ngIf="!post.isPined" (click)="pinPost(post)">
+                <i class="fas fa-thumbtack"></i>
+              </span>
+              <span class="icon ml-3 is-clickable" *ngIf="post.isPined" (click)="unpinPost(post)">
+                <img src="../../../assets/images/pin-icon.png" alt="">
+              </span>
+            </div>
           </div>
       
           <div class="content">
@@ -45,8 +53,11 @@
             </div>
             <div class="media-right">
               <p>Ce post est un sondage, pour sélectionner plusieurs options restez appuyés sur CTRL (ou "command" sur Mac)</p>
-              <span class="icon ml-3 is-clickable">
+              <span class="icon ml-3 is-clickable" *ngIf="!post.isPined" (click)="pinPost(post)">
                 <i class="fas fa-thumbtack"></i>
+              </span>
+              <span class="icon ml-3 is-clickable" *ngIf="post.isPined" (click)="unpinPost(post)">
+                <img src="../../../assets/images/pin-icon.png" alt="">
               </span>
             </div>
           </div>
@@ -68,7 +79,11 @@
 
           <div class="content" *ngIf="post.poll.data" >
             <pre>
-              <h2>{{post.poll.content}}</h2>
+              <div class="is-flex is-justify-content-space-between">
+                <h2>{{post.poll.content}}</h2>
+                <p class="is-italic">Vous avez déjà voté pour ce sondage</p>
+              </div>
+              
               <div class="charts">
                 <ngx-charts-bar-vertical
                 [view]="view"

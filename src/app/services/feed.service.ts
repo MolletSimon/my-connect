@@ -44,6 +44,7 @@ export class FeedService {
           "id": user._id
         },
         "group": group,
+        "isPined": false,
         "isPoll": isPoll ? isPoll : false,
         "poll": poll ? poll : {}
       }, this._apiService.httpOptions
@@ -54,6 +55,14 @@ export class FeedService {
     return this._httpService.put<any>(`${this._apiService.apiUrl}post/update/${id}`, 
       {
         "poll": poll
+      }, this._apiService.httpOptions
+      )
+  }
+
+  pin(post: Post): Observable<any> {
+    return this._httpService.put<any>(`${this._apiService.apiUrl}post/update/${post._id}`, 
+      {
+        "isPined": post.isPined
       }, this._apiService.httpOptions
       )
   }

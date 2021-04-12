@@ -78,7 +78,9 @@ export class FeedComponent implements OnInit {
 	}
 
 	addGroup(group: Group) {
-		this.groupsSelected.push(group);
+		if (!this.groupsSelected.find(g => g._id == group._id)) {
+			this.groupsSelected.push(group);
+		}
 	}
 
 	openPoll() {
@@ -106,7 +108,9 @@ export class FeedComponent implements OnInit {
 
 	addGroupToPoll() {
 		let element = document.getElementById('group') as HTMLSelectElement;
-		this.groupsSelected.push(this.groups.find(g => g._id === element.value));
+		if (element.value) {
+			this.addGroup(this.groups.find(g => g._id === element.value));
+		}
 	}
 
 	addChoice() {

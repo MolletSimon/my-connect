@@ -40,9 +40,10 @@ export class PostsComponent implements OnInit {
   getPosts() {
     this._feedService.getPosts(this.user).subscribe(result => {
       this.posts = result
-      this.postsDisplayed = result;
+      this.checkIfPined();
       this.checkIfUserVoted();
       this.preparePoll();
+      this.postsDisplayed = this.posts;
     });
   }
 
@@ -50,6 +51,16 @@ export class PostsComponent implements OnInit {
     if (window.matchMedia("(max-width: 600px)").matches) {
       this.view = [300, 300];
     }
+  }
+
+  checkIfPined() {
+    this.posts.forEach(post => {
+      if(post.isPined) {
+        this.posts = this.posts.filter(p => p._id != post._id);
+        this.posts.unshift(post);
+      }
+    });
+    console.log(this.posts)
   }
 
   preparePoll() {
@@ -104,6 +115,22 @@ export class PostsComponent implements OnInit {
     this._feedService.vote(this.poll, post._id)
       .subscribe(() => {
         this.post.next();
+      })
+  }
+
+  pinPost(post: Post) {
+    post.isPined = true;
+    this._feedService.pin(post)
+      .subscribe(() => {
+        this.getPosts();
+      })
+  }
+
+  unpinPost(post: Post) {
+    post.isPined = false;
+    this._feedService.pin(post)
+      .subscribe(() => {
+        this.getPosts();
       })
   }
 

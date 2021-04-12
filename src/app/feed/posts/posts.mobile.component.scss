@@ -30,7 +30,10 @@ pre {
 }
 
 .media-right {
-    display: none;
+    p {
+        display: none;
+    }
+    
 }
 
 .filter {

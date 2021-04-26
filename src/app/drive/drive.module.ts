@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +10,8 @@ import { DriveComponent } from './drive.component';
   declarations: [DriveComponent],
   imports: [
     CommonModule,
-    DriveRoutingModule
+    DriveRoutingModule,
+    FormsModule
   ]
 })
 export class DriveModule { }

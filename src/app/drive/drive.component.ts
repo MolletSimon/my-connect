@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-drive',
@@ -11,5 +12,9 @@ export class DriveComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  uploadFile(f: NgForm){
+    console.log(f.value.file as File)
+  } 
 
 }

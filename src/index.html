@@ -15,4 +15,27 @@
   <app-root></app-root>
 </body>
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyBeKLytgD0WNC3SeVCKL3f31zTNDS19T_g",
+    authDomain: "mye-connect.firebaseapp.com",
+    projectId: "mye-connect",
+    storageBucket: "mye-connect.appspot.com",
+    messagingSenderId: "729590756186",
+    appId: "1:729590756186:web:4cc0ebb506ecbde8ac3963",
+    measurementId: "G-596V1Q6HXT"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
 </html>

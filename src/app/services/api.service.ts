@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ApiService {
-  public apiUrl = 'https://api-my-connect.herokuapp.com/';
+  public apiUrl = 'http://127.0.0.1:3000/';
   public httpOptions = {
 		headers: new HttpHeaders({
 			'Authorization': `Bearer ${sessionStorage.getItem("CurrentUser") ? JSON.parse(sessionStorage.getItem("CurrentUser")).token : null}`

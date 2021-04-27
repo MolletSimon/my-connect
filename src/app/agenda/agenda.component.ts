@@ -246,6 +246,8 @@ export class AgendaComponent implements OnInit {
     addAppointment(event: ActionEventArgs) {
         let appointment = event.addedRecords[0];
 
+        console.log(this.groups)
+
         if(!appointment["group"]) {
             if(confirm(`Attention ! Vous n'avez pas sélectionné de groupe pour cet évènement. Par défaut le groupe ${this.groups[0].name} va être appliqué. Souhaitez-vous continuer ?`)) {
                 appointment["Group"] = this.groups[0];
@@ -256,7 +258,7 @@ export class AgendaComponent implements OnInit {
         }
         
         this.loading = true;
-        appointment["Group"] = this.groups.find(g => g._id == appointment["group"]);
+        appointment["Group"] = appointment["Group"] ? appointment["Group"] : this.groups.find(g => g._id == appointment["group"]);
         this._appointmentService.addAppointments(event.addedRecords[0] as unknown as Appointment)
             .subscribe(app => {
                 this._toastr.success("L'évènement a bien été ajouté ! ");

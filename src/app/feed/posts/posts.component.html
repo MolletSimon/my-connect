@@ -33,7 +33,7 @@
           </div>
       
           <div class="content">
-            <pre>{{post.content}}</pre>
+            <pre class="post-content">{{post.content}}</pre>
             <time>{{post.date | date : 'medium'}}</time>
           </div>
         </div>
@@ -52,7 +52,7 @@
               </ng-container>
             </div>
             <div class="media-right">
-              <p>Ce post est un sondage, pour sélectionner plusieurs options restez appuyés sur CTRL (ou "command" sur Mac)</p>
+              <p *ngIf="!post.poll.hasVoted" >Ce post est un sondage, pour sélectionner plusieurs options restez appuyés sur CTRL (ou "command" sur Mac)</p>
               <span class="icon ml-3 is-clickable" *ngIf="!post.isPined" (click)="pinPost(post)">
                 <i class="fas fa-thumbtack"></i>
               </span>
@@ -80,8 +80,8 @@
           <div class="content" *ngIf="post.poll.data" >
             <pre>
               <div class="is-flex is-justify-content-space-between">
-                <h2>{{post.poll.content}}</h2>
-                <p class="is-italic">Vous avez déjà voté pour ce sondage</p>
+                <h2 style="width: 80%;">{{post.poll.content}}</h2>
+                <p class="is-italic has-text-right">Vous avez déjà voté pour ce sondage</p>
               </div>
               
               <div class="charts">

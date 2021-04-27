@@ -9,6 +9,10 @@
     .media-right {
         display: flex;
         align-items: flex-end;
+
+        p {
+            display: block;
+        }
     }
 
     .charts {

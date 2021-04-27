@@ -18,6 +18,7 @@
                         <select ngModel name="group" required>
                             <option hidden value="" disabled selected>Sélectionnez un groupe</option>
                             <option *ngFor="let g of groups" [ngValue]="g">{{g.name}}</option>
+                            <option value="all">Tous</option>
                         </select>
                     </div>
                     <div class="add-mobile" (click)="addGroup(f.form.value.group)">
@@ -72,6 +73,7 @@
                         <select id="group" required>
                             <option hidden value="" disabled selected>Sélectionnez un groupe</option>
                             <option *ngFor="let g of groups" [value]="g._id">{{g.name}}</option>
+                            <option value="all">Tous</option>
                         </select>
                     </div>
                     <div class="add-mobile" (click)="addGroupToPoll()">

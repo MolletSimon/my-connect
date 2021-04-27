@@ -39,7 +39,11 @@ export class FeedComponent implements OnInit {
 		if (this.groupsSelected.length > 0) {
 			this.groupsSelected;
 		} else {
-			this.groupsSelected.push(f.form.value["group"] as Group)
+			if (f.form.value["group"] == "all") {
+				this.groups.forEach(g => this.groupsSelected.push(g));
+			} else {
+				this.groupsSelected.push(f.form.value["group"] as Group)
+			}
 		}
 		this._feedService.publish(f.form.value["content"], this.user, this.groupsSelected)
 			.subscribe(result => {
@@ -52,12 +56,8 @@ export class FeedComponent implements OnInit {
 	}
 
 	savePoll() {
-		if (this.groupsSelected.length > 0) {
-			this.groupsSelected;
-		} else {
-			let group = this.groups.find(g => g._id == (<HTMLSelectElement>document.getElementById("group")).value)
-			this.groupsSelected.push(group);
-		}
+		if (!this.checkPoll())
+			return;
 
 		this._feedService.publish("", this.user, this.groupsSelected, this.poll, true)
 			.subscribe(result => {
@@ -66,6 +66,36 @@ export class FeedComponent implements OnInit {
 				this.groupsSelected = [];
 				this._toastr.info("Sondage publié !");
 			})
+	}
+
+	checkPoll() {
+		if (this.groupsSelected.length > 0) {
+			this.groupsSelected;
+		} else {
+			let group = this.groups.find(g => g._id == (<HTMLSelectElement>document.getElementById("group")).value);
+			if (group)
+				this.groupsSelected.push(group);
+			else {
+				if((<HTMLSelectElement>document.getElementById("group")).value == "all") {
+					this.addGroup("all");
+				} else {
+					this._toastr.info("Vous devez sélectionner au moins un groupe dans lequel poster votre sondage");
+					return;
+				}
+			}
+		}
+		
+		if (!this.poll.content) {
+			this._toastr.info("Veuillez saisir votre question");
+			return false;
+		}
+
+		if (this.poll.answers.length < 2) {
+			this._toastr.info("Vous devez proposer au moins 2 choix de réponses différents");
+			return false;
+		}
+
+		return true;
 	}
 
 	getCurrentUser() {
@@ -77,9 +107,15 @@ export class FeedComponent implements OnInit {
 			.subscribe(groups => this.groups = groups)
 	}
 
-	addGroup(group: Group) {
-		if (!this.groupsSelected.find(g => g._id == group._id)) {
-			this.groupsSelected.push(group);
+	addGroup(group) {
+		if (group == "all") {
+			this.groups.forEach(g => {
+				this.groupsSelected.push(g)
+			})
+		} else {
+			if (!this.groupsSelected.find(g => g._id == group._id)) {
+				this.groupsSelected.push(group);
+			}
 		}
 	}
 
@@ -109,7 +145,11 @@ export class FeedComponent implements OnInit {
 	addGroupToPoll() {
 		let element = document.getElementById('group') as HTMLSelectElement;
 		if (element.value) {
-			this.addGroup(this.groups.find(g => g._id === element.value));
+			if (element.value == "all") {
+				this.addGroup("all")
+			} else {
+				this.addGroup(this.groups.find(g => g._id === element.value));
+			}
 		}
 	}
 

@@ -4,9 +4,12 @@
 
 pre {
     max-width:   100%;
-    white-space: pre-wrap !important;
+    white-space: normal !important;
 }
 
+.post-content {
+    white-space: pre-wrap !important;
+}
 .title.is-4 {
     font-size: 1rem;
     font-style: italic;

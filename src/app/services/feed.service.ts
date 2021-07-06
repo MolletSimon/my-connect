@@ -41,7 +41,8 @@ export class FeedService {
         "user": {
           "lastname": user.lastname,
           "firstname": user.firstname,
-          "id": user._id
+          "id": user._id,
+          "img": user.img,
         },
         "group": group,
         "isPined": false,

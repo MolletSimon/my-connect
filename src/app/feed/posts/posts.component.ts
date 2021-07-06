@@ -1,3 +1,4 @@
+import { UsersService } from './../../services/users.service';
 import { Post } from './../../model/post';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FeedService } from 'src/app/services/feed.service';
@@ -27,7 +28,7 @@ export class PostsComponent implements OnInit {
     domain: ['#54428E', '#8963BA', '#AFE3C0', '#90C290', '#688B58']
   };
   
-  constructor(private _feedService: FeedService) { }
+  constructor(private _feedService: FeedService, private _usersService: UsersService) { }
 
   ngOnInit(): void {
     this.viewMobile();

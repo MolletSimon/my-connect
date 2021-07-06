@@ -15,6 +15,9 @@ import { NgForm } from '@angular/forms';
 export class EditComponent implements OnInit {
   public user: User;
   public userUpdated: User;
+  public file: File;
+  reader = new FileReader();
+  fileName = '';
 
   constructor(
     private _usersService: UsersService,
@@ -30,8 +33,26 @@ export class EditComponent implements OnInit {
     this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
   }
 
-  saveInfos(f: NgForm) {
+  onFileSelected(event) {
+    const file:File = event.target.files[0];
+    this.reader.readAsDataURL(file);
 
+    this.reader.onload = () => {
+      this._usersService.uploadPicture(this.reader.result, this.user)
+        .subscribe(result => {
+          this._toastr.success("Photo publiée")
+        }, err => {
+          console.log(err)
+        })
+    };
+
+    if (file) {
+        this.fileName = file.name;
+        this.file = file;
+    }
+  }
+
+  saveInfos(f: NgForm) {
     this.userUpdated = {
       "_id": this.user._id,
       "firstname": f.value.firstname ? f.value.firstname : this.user.firstname,

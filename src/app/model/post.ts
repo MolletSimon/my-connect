@@ -6,6 +6,7 @@ export interface Post {
         id: string;
         firstname: string;
         lastname: string;
+        img: string;
     };
     group: [{
         _id: string;

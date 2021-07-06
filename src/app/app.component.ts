@@ -1,3 +1,4 @@
+import { GroupService } from './services/group.service';
 import { User } from './model/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit{
   userInitialized = false;
   user: User;
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router, private _groupService: GroupService) {}
 
   ngOnInit() {
     this.getCurrentUser();

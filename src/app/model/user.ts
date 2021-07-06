@@ -7,4 +7,5 @@ export interface User {
     isSuperadmin: boolean;
     mail: string;
     phone: string;
+    img: [];
 }

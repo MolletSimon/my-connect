@@ -1,3 +1,4 @@
+import { UsersService } from './../services/users.service';
 import { Poll } from './../model/poll';
 import { GroupService } from './../services/group.service';
 import { PostsComponent } from './posts/posts.component';
@@ -17,7 +18,7 @@ import { NgForm } from '@angular/forms';
 })
 export class FeedComponent implements OnInit {
 	user: User;
-	groups: Group[];
+	groups: Group[] = [];
 	groupsSelected: Group[] = [];
 	post: Subject<any> = new Subject();
 	poll: Poll;
@@ -27,7 +28,8 @@ export class FeedComponent implements OnInit {
 	constructor(
 		private _feedService: FeedService,
 		private _toastr: ToastrService,
-		private _groupService: GroupService
+		private _groupService: GroupService,
+		private _usersService: UsersService
 	) { }
 
 	ngOnInit(): void {

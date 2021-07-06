@@ -36,6 +36,18 @@ export class UsersService {
 		return this._httpClient.delete<any>(`${this._apiService.apiUrl}user/delete/${id}`, this._apiService.httpOptions);
 	}
 
+	uploadPicture(url, user): Observable<any> {
+		let body = {
+			"id": user._id,
+			"data": url
+		};
+		return this._httpClient.put<any>(`${this._apiService.apiUrl}user/upload/picture`, body, this._apiService.httpOptions)
+	}
+
+	getPicture(user: User) : Observable<any> {
+		return this._httpClient.get<any>(`${this._apiService.apiUrl}user/get/picture/${user._id}`, this._apiService.httpOptions)
+	}
+
 	addGroupToUser(id: string, groups: Group[]): Observable<any> {
 		let body = {
 			"groups": groups

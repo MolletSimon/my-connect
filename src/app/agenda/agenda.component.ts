@@ -174,7 +174,7 @@ export class AgendaComponent implements OnInit {
     }
 
     getAppointments() {
-        this._appointmentService.getAppointments()
+        this._appointmentService.getAppointments(this.user.groups)
             .subscribe(app => {
                 this.eventObject = {
                     dataSource: app

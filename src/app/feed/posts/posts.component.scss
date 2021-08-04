@@ -56,4 +56,17 @@
             width: 100%;
         }
     } 
+
+    #like {
+        cursor: pointer;
+    }
+
+    .footer-post {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .content {
+        margin-bottom: 0 !important;
+    }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Group } from '../model/group';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,8 +15,8 @@ export class AppointmentService {
 		private _httpClient: HttpClient
 	) { }
 
-	getAppointments(): Observable<Appointment[]> {
-		return this._httpClient.get<Appointment[]>(`${this._apiService.apiUrl}appointment/getAll`, this._apiService.httpOptions);
+	getAppointments(groups: Group[]): Observable<Appointment[]> {
+		return this._httpClient.post<Appointment[]>(`${this._apiService.apiUrl}appointment/getAll`, {groups}, this._apiService.httpOptions);
 	}
 
 	deleteAppointments(id: string): Observable<any> {

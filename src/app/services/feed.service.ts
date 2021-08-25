@@ -60,6 +60,12 @@ export class FeedService {
       )
   }
 
+  like(post: Post): Observable<any> {
+    return this._httpService.put<any>(`${this._apiService.apiUrl}post/update/${post._id}`, {
+      "liked": post.liked
+    }, this._apiService.httpOptions);
+  }
+
   pin(post: Post): Observable<any> {
     return this._httpService.put<any>(`${this._apiService.apiUrl}post/update/${post._id}`, 
       {

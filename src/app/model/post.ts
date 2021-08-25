@@ -17,4 +17,10 @@ export interface Post {
     isPoll: boolean;
     poll: Poll;
     isPined: boolean;
+    userLiked: boolean;
+    liked: {
+        _id: string;
+        firstname: string;
+        lastname: string;
+    } []
 }

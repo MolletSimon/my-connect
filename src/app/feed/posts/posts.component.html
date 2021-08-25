@@ -2,80 +2,138 @@
   <span class="tag filter-group" (click)="filterByGroup('tous', $event)">
     Tous
   </span>
-  <span class="tag filter-group" *ngFor="let group of groups" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}" (click)="filterByGroup(group, $event)">
-      @{{group.name}}
+  <span
+    class="tag filter-group"
+    *ngFor="let group of groups"
+    [ngStyle]="{ 'background-color': addAlpha(group.color, 0.4) }"
+    (click)="filterByGroup(group, $event)"
+  >
+    @{{ group.name }}
   </span>
 </div>
 
 <div *ngFor="let post of postsDisplayed" class="posts fade-in">
-    <div class="card">
-        <div class="card-content" *ngIf="!post.isPoll">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <p class="title is-4">{{post.user.firstname}} {{post.user.lastname}}</p>
-              <ng-container *ngFor="let group of post.group">
-                <p class="tag margin-right" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">@{{group.name}}</p>
-              </ng-container>
-            </div>
-            <div class="media-right">
-              <span class="icon ml-3 is-clickable" *ngIf="!post.isPined" (click)="pinPost(post)">
-                <i class="fas fa-thumbtack"></i>
-              </span>
-              <span class="icon ml-3 is-clickable" *ngIf="post.isPined" (click)="unpinPost(post)">
-                <img src="../../../assets/images/pin-icon.png" alt="">
-              </span>
-            </div>
-          </div>
-      
-          <div class="content">
-            <pre class="post-content">{{post.content}}</pre>
-            <div class="footer-post">
-              <div class="like-div">
-                <span class="icon" id="like">
-                  <i class="far fa-thumbs-up"></i>
-                </span>
-                <span class="icon" id="like">
-                  <i class="far fa-comment"></i>
-                </span>
-              </div>
-              <time>{{post.date | date : 'medium'}}</time>
-            </div>
-          </div>
-
-          
+  <div class="card">
+    <div class="card-content" *ngIf="!post.isPoll">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            <img
+              src="https://bulma.io/images/placeholders/96x96.png"
+              alt="Placeholder image"
+            />
+          </figure>
         </div>
+        <div class="media-content">
+          <p class="title is-4">
+            {{ post.user.firstname }} {{ post.user.lastname }}
+          </p>
+          <ng-container *ngFor="let group of post.group">
+            <p
+              class="tag margin-right"
+              [ngStyle]="{ 'background-color': addAlpha(group.color, 0.4) }"
+            >
+              @{{ group.name }}
+            </p>
+          </ng-container>
+        </div>
+        <div class="media-right">
+          <span
+            class="icon ml-3 is-clickable"
+            *ngIf="!post.isPined"
+            (click)="pinPost(post)"
+          >
+            <i class="fas fa-thumbtack"></i>
+          </span>
+          <span
+            class="icon ml-3 is-clickable"
+            *ngIf="post.isPined"
+            (click)="unpinPost(post)"
+          >
+            <img src="../../../assets/images/pin-icon.png" alt="" />
+          </span>
+        </div>
+      </div>
 
-        <div class="card-content" *ngIf="post.isPoll">
-          <div class="media">
-            <div class="media-left">
-              <figure class="image is-48x48">
-                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
-              </figure>
-            </div>
-            <div class="media-content">
-              <p class="title is-4">{{post.user.firstname}} {{post.user.lastname}}</p>
-              <ng-container *ngFor="let group of post.group">
-                <p class="tag margin-right" [ngStyle]="{'background-color': addAlpha(group.color, 0.4)}">@{{group.name}}</p>
-              </ng-container>
-            </div>
-            <div class="media-right">
-              <p *ngIf="!post.poll.hasVoted" >Ce post est un sondage, pour sélectionner plusieurs options restez appuyés sur CTRL (ou "command" sur Mac)</p>
-              <span class="icon ml-3 is-clickable" *ngIf="!post.isPined" (click)="pinPost(post)">
-                <i class="fas fa-thumbtack"></i>
-              </span>
-              <span class="icon ml-3 is-clickable" *ngIf="post.isPined" (click)="unpinPost(post)">
-                <img src="../../../assets/images/pin-icon.png" alt="">
-              </span>
-            </div>
+      <div class="content">
+        <pre class="post-content">{{ post.content }}</pre>
+        <div class="footer-post">
+          <div class="like-div">
+            <span class="icon" id="like" (click)="like(post)">
+              <i *ngIf="!post.userLiked" class="far fa-thumbs-up"></i>
+              <i *ngIf="post.userLiked" class="fas fa-thumbs-up"></i>
+            </span>
+            <span *ngIf="post.liked.length == 1" class="who-liked">
+              {{ post.liked[0].firstname }} {{ post.liked[0].lastname }} a aimé
+              ce post.
+            </span>
+            <span *ngIf="post.liked.length == 2" class="who-liked">
+              {{ post.liked[0].firstname }} {{ post.liked[0].lastname }} et
+              {{ post.liked[1].firstname }} {{ post.liked[1].lastname }} ont
+              aimé ce post.
+            </span>
+            <span *ngIf="post.liked.length > 2" class="who-liked">
+              {{ post.liked[0].firstname }} {{ post.liked[0].lastname }} et
+              <span
+                style="text-decoration: underline; cursor: pointer"
+                (click)="openModal('modal-other-persons')"
+                >{{ post.liked.length - 1 }} autres personnes</span
+              >
+              ont aimé ce post.
+            </span>
           </div>
-      
-          <div class="content" *ngIf="!post.poll.hasVoted" >
-            <pre>
+          <time>{{ post.date | date: "medium" }}</time>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-content" *ngIf="post.isPoll">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            <img
+              src="https://bulma.io/images/placeholders/96x96.png"
+              alt="Placeholder image"
+            />
+          </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4">
+            {{ post.user.firstname }} {{ post.user.lastname }}
+          </p>
+          <ng-container *ngFor="let group of post.group">
+            <p
+              class="tag margin-right"
+              [ngStyle]="{ 'background-color': addAlpha(group.color, 0.4) }"
+            >
+              @{{ group.name }}
+            </p>
+          </ng-container>
+        </div>
+        <div class="media-right">
+          <p *ngIf="!post.poll.hasVoted">
+            Ce post est un sondage, pour sélectionner plusieurs options restez
+            appuyés sur CTRL (ou "command" sur Mac)
+          </p>
+          <span
+            class="icon ml-3 is-clickable"
+            *ngIf="!post.isPined"
+            (click)="pinPost(post)"
+          >
+            <i class="fas fa-thumbtack"></i>
+          </span>
+          <span
+            class="icon ml-3 is-clickable"
+            *ngIf="post.isPined"
+            (click)="unpinPost(post)"
+          >
+            <img src="../../../assets/images/pin-icon.png" alt="" />
+          </span>
+        </div>
+      </div>
+
+      <div class="content" *ngIf="!post.poll.hasVoted">
+        <pre>
               <h2>{{post.poll.content}}</h2>
               <div class="select is-multiple" id="answers">
                 <select id="votes" multiple [size]="post.poll.answers.length">
@@ -83,14 +141,16 @@
                 </select>
               </div>
             </pre>
-            <div class="vote-button mt-2">
-              <time>{{post.date | date : 'medium'}}</time>
-              <button class="button is-light is-primary" (click)="vote(post)">Voter !</button>
-            </div>
-          </div>
+        <div class="vote-button mt-2">
+          <time>{{ post.date | date: "medium" }}</time>
+          <button class="button is-light is-primary" (click)="vote(post)">
+            Voter !
+          </button>
+        </div>
+      </div>
 
-          <div class="content" *ngIf="post.poll.data" >
-            <pre>
+      <div class="content" *ngIf="post.poll.data">
+        <pre>
               <div class="is-flex is-justify-content-space-between">
                 <h2 style="width: 80%;">{{post.poll.content}}</h2>
                 <p class="is-italic has-text-right">Vous avez déjà voté pour ce sondage</p>
@@ -123,18 +183,72 @@
                 </ngx-charts-bar-vertical>
               </div>
               
-            </pre>
-            <div class="vote-button mt-2">
-              <time>{{post.date | date : 'medium'}}</time>
+        </pre>
+        <div class="footer-post">
+          <div class="like-div">
+            <span class="icon" id="like" (click)="like(post)">
+              <i *ngIf="!post.userLiked" class="far fa-thumbs-up"></i>
+              <i *ngIf="post.userLiked" class="fas fa-thumbs-up"></i>
+            </span>
+            <span *ngIf="post.liked.length == 1" class="who-liked">
+              {{ post.liked[0].firstname }} {{ post.liked[0].lastname }} a aimé
+              ce post.
+            </span>
+            <span *ngIf="post.liked.length == 2" class="who-liked">
+              {{ post.liked[0].firstname }} {{ post.liked[0].lastname }} et
+              {{ post.liked[1].firstname }} {{ post.liked[1].lastname }} ont
+              aimé ce post.
+            </span>
+            <span *ngIf="post.liked.length > 2" class="who-liked">
+              {{ post.liked[0].firstname }} {{ post.liked[0].lastname }} et
+              <span
+                style="text-decoration: underline; cursor: pointer"
+                (click)="openModal('modal-other-persons')"
+                >{{ post.liked.length - 1 }} autres personnes</span
+              >
+              ont aimé ce post.
+            </span>
+          </div>
+          <time>{{ post.date | date: "medium" }}</time>
+        </div>
+        <div class="modal" id="modal-other-persons">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="card">
+              <div class="card-content">
+                <div class="content">
+                  <h2>Liste des personnes qui ont aimé le post.</h2>
+                  <table class="table is-striped">
+                    <tbody>
+                      <tr *ngFor="let user of post.liked">
+                        <td>{{ user.firstname }} {{ user.lastname }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-          <span class="icon" id="like">
-            <i class="far fa-thumbs-up"></i>
-          </span>
+          <button
+            class="modal-close is-large"
+            aria-label="close"
+            (click)="closeModal('modal-other-persons')"
+          ></button>
         </div>
       </div>
+    </div>
+  </div>
 </div>
 
-<div class="progress-spinner fade-in" *ngIf="!posts" >
-  <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<div class="progress-spinner fade-in" *ngIf="!posts">
+  <div class="lds-roller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </div>

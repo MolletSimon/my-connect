@@ -1,13 +1,18 @@
-<div class="content" *ngIf="!loading" >
-    <div class="title">
-        <h1>Wesh ! ✌🏻</h1>
-    </div>
-    <div class="logo">
-      <img src="../../../assets/images/logo.png">
-    </div>
+<div class="content" *ngIf="!loading">
+  <div class="title">
+    <h1>Wesh ! ✌🏻</h1>
+  </div>
+  <div class="logo">
+    <img src="../../../assets/images/logo.png" />
+  </div>
   <div class="field">
     <p class="control has-icons-left has-icons-right">
-      <input class="input" type="email" placeholder="Email" [(ngModel)]="mail">
+      <input
+        class="input"
+        type="email"
+        placeholder="Email"
+        [(ngModel)]="mail"
+      />
       <span class="icon is-small is-left">
         <i class="fas fa-envelope"></i>
       </span>
@@ -18,23 +23,41 @@
   </div>
   <div class="field">
     <p class="control has-icons-left">
-      <input class="input" type="password" placeholder="Password" [(ngModel)]="password">
+      <input
+        class="input"
+        type="password"
+        placeholder="Password"
+        [(ngModel)]="password"
+      />
       <span class="icon is-small is-left">
         <i class="fas fa-lock"></i>
       </span>
     </p>
   </div>
   <div class="field is-grouped is-grouped-right">
-    <p class="control">
-      <button class="button is-primary is-inverted" (click)="signUp()" type="button">
-        S'inscrire
-      </button>
-      <button class="button is-primary" (click)="login()" *ngIf="!loading" >
+    <p class="control btn-connection">
+      <button class="button is-primary" (click)="login()" *ngIf="!loading">
         Se connecter
+      </button>
+      <button
+        class="button is-primary is-inverted"
+        (click)="signUp()"
+        type="button"
+      >
+        S'inscrire
       </button>
     </p>
   </div>
 </div>
-<div class="progress-spinner" *ngIf="loading" >
-  <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<div class="progress-spinner" *ngIf="loading">
+  <div class="lds-roller">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </div>

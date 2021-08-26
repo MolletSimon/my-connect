@@ -8,6 +8,11 @@
     .logo {
         display: none;
     }
+
+    .btn-connection {
+        display: flex;
+        flex-direction: row-reverse;
+    }
 }
 
 @media only screen and (max-width: 600px) {

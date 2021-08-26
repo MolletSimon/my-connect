@@ -1,3 +1,4 @@
+import { Appointment } from './../model/appointment';
 import { User } from './../model/user';
 import { AppointmentService } from './../services/appointment.service';
 import { GroupService } from './../services/group.service';
@@ -14,7 +15,6 @@ import { View } from '@syncfusion/ej2-schedule';
 import { createElement } from '@syncfusion/ej2-base';
 import { DropDownList } from '@syncfusion/ej2-dropdowns';
 import { Group } from '../model/group';
-import { Appointment } from '../model/appointment';
 import { ToastrService } from 'ngx-toastr';
 import jwt_decode from 'jwt-decode';
 
@@ -251,7 +251,7 @@ export class AgendaComponent implements OnInit {
           placeholder: 'Groupe concerné',
         });
         dropDownList.appendTo(inputEle);
-        inputEle.setAttribute('name', 'group');
+        inputEle.setAttribute('name', 'groupId');
       }
     }
   }
@@ -275,27 +275,38 @@ export class AgendaComponent implements OnInit {
 
   // --------------------- SERVICES --------------------- //
   addAppointment(event: ActionEventArgs) {
-    let appointment = event.addedRecords[0];
+    let appointment: Appointment;
+    appointment = event.addedRecords[0] as unknown as Appointment;
 
-    if (!appointment['group']) {
-      if (
-        confirm(
-          `Attention ! Vous n'avez pas sélectionné de groupe pour cet évènement. Par défaut l'évènement sera appliqué à tous les groupes. Souhaitez-vous continuer ?`
-        )
-      ) {
-        appointment['Group'] = this.groups[this.groups.length - 1];
+    if (!appointment.groupId) {
+      let text;
+      this.user.isSuperadmin
+        ? (text = `Attention ! Vous n'avez pas sélectionné de groupe pour cet évènement. Par défaut l'évènement sera appliqué à tous les groupes. Souhaitez-vous continuer ?`)
+        : (text = `Attention ! Vous n'avez pas sélectionné de groupe pour cet évènement. Par défaut l'évènement sera appliqué au groupe ${this.groups[0].name}. Souhaitez-vous continuer ?`);
+      if (confirm(text)) {
+        this.user.isSuperadmin
+          ? (appointment.groupId = 'all')
+          : (appointment.groupId = this.groups[0]._id);
       } else {
         location.reload();
         return;
       }
     }
 
+    if (appointment.groupId === 'all') {
+      // tous les groupes
+      appointment.Group = {
+        color: '#721817',
+        name: 'Tous',
+      } as Group;
+    } else {
+      appointment.Group = this.groups.find((g) => g._id == appointment.groupId);
+      console.log(appointment);
+    }
+
     this.loading = true;
-    appointment['Group'] = appointment['Group']
-      ? appointment['Group']
-      : this.groups.find((g) => g._id == appointment['group']);
     this._appointmentService
-      .addAppointments(event.addedRecords[0] as unknown as Appointment)
+      .addAppointments(appointment as unknown as Appointment)
       .subscribe(
         (app) => {
           this._toastr.success("L'évènement a bien été ajouté ! ");
@@ -314,6 +325,14 @@ export class AgendaComponent implements OnInit {
       },
       (err) => console.error(err)
     );
+  }
+
+  openModal(id: string) {
+    document.getElementById(id).classList.add('is-active');
+  }
+
+  closeModal(id: string) {
+    document.getElementById(id).classList.remove('is-active');
   }
 
   // CSS FUNCTION

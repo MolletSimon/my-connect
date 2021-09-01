@@ -9,8 +9,8 @@ export class ApiService {
   public httpOptions = {
     headers: new HttpHeaders({
       Authorization: `Bearer ${
-        sessionStorage.getItem('CurrentUser')
-          ? JSON.parse(sessionStorage.getItem('CurrentUser')).token
+        localStorage.getItem('CurrentUser')
+          ? JSON.parse(localStorage.getItem('CurrentUser')).token
           : null
       }`,
     }),

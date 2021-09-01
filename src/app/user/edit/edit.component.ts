@@ -38,14 +38,16 @@ export class EditComponent implements OnInit {
   }
 
   getUser() {
-    this.user = jwt_decode(sessionStorage.getItem('CurrentUser')) as User;
+    this.user = jwt_decode(localStorage.getItem('CurrentUser')) as User;
   }
 
   getPicture() {
     this._usersService.getPicture(this.user).subscribe((picture) => {
-      this.img = this._domSanitizer.bypassSecurityTrustResourceUrl(
-        `data:image/png;base64, ${picture[0].img}`
-      );
+      if (picture[0].img) {
+        this.img = this._domSanitizer.bypassSecurityTrustResourceUrl(
+          `data:image/png;base64, ${picture[0].img}`
+        );
+      }
     });
   }
 
@@ -88,11 +90,11 @@ export class EditComponent implements OnInit {
     this._usersService.updateUser(this.userUpdated).subscribe(
       (user) => {
         this._toastr.success('Informations modifiées !');
-        sessionStorage.removeItem('CurrentUser');
+        localStorage.removeItem('CurrentUser');
         let token = {
           token: sign(user, 'el-tokenos-my-connect-19283746567-jfzofhouhouz'),
         };
-        sessionStorage.setItem('CurrentUser', JSON.stringify(token));
+        localStorage.setItem('CurrentUser', JSON.stringify(token));
         this.getUser();
         f.reset();
       },

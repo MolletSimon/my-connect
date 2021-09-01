@@ -1,33 +1,31 @@
 import { Router } from '@angular/router';
 import { User } from './../../model/user';
 import { Component, OnInit } from '@angular/core';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 
 @Component({
-	selector: 'app-header',
-	templateUrl: './header.component.html',
-	styleUrls: ['./header.component.scss']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-	user: User;
-	constructor(
-		private _router: Router
-	) { }
+  user: User;
+  constructor(private _router: Router) {}
 
-	ngOnInit(): void {
-		this.getCurrentUser();
-	}
+  ngOnInit(): void {
+    this.getCurrentUser();
+  }
 
-	getCurrentUser() {
-		this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
-	}
+  getCurrentUser() {
+    this.user = jwt_decode(localStorage.getItem('CurrentUser')) as User;
+  }
 
-	disconnect() {
-		sessionStorage.removeItem("CurrentUser");
-		location.reload();
-	}
+  disconnect() {
+    localStorage.removeItem('CurrentUser');
+    location.reload();
+  }
 
-	editUser() {
-		this._router.navigate(['user']);
-	}
+  editUser() {
+    this._router.navigate(['user']);
+  }
 }

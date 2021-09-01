@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('CurrentUser')) {
+    if (localStorage.getItem('CurrentUser')) {
       this._router.navigate(['feed']);
     }
   }
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     if (this.mail && this.password)
       this._authService.login(this.mail, this.password).subscribe(
         (result) => {
-          sessionStorage.setItem('CurrentUser', JSON.stringify(result));
+          localStorage.setItem('CurrentUser', JSON.stringify(result));
           this._router.navigate(['feed']);
           location.reload();
         },

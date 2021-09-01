@@ -2,14 +2,14 @@ import { GroupService } from './services/group.service';
 import { User } from './model/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   userInitialized = false;
   user: User;
 
@@ -20,12 +20,12 @@ export class AppComponent implements OnInit{
   }
 
   getCurrentUser() {
-    if(!sessionStorage.getItem("CurrentUser")) {
+    if (!localStorage.getItem('CurrentUser')) {
       this._router.navigate(['login']);
       this.userInitialized = false;
     } else {
       this.userInitialized = true;
-      this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
+      this.user = jwt_decode(localStorage.getItem('CurrentUser')) as User;
     }
   }
 }

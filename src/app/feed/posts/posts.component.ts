@@ -81,9 +81,11 @@ export class PostsComponent implements OnInit {
     if (user.id) {
       user._id = user.id;
       this._usersService.getPicture(user).subscribe((picture) => {
-        user.img = this._domSanitizer.bypassSecurityTrustResourceUrl(
-          `data:image/png;base64, ${picture[0].img}`
-        );
+        if (picture[0].img) {
+          user.img = this._domSanitizer.bypassSecurityTrustResourceUrl(
+            `data:image/png;base64, ${picture[0].img}`
+          );
+        }
       });
     }
   }

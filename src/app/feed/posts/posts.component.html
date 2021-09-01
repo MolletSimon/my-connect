@@ -23,9 +23,11 @@
             *ngIf="post.user.img"
             class="profile-picture"
           />
-          <figure class="image is-48x48" *ngIf="!post.user.img">
-            <img src="https://bulma.io/images/placeholders/96x96.png" />
-          </figure>
+          <img
+            *ngIf="!post.user.img"
+            class="profile-picture"
+            src="https://e7.pngegg.com/pngimages/103/590/png-clipart-computer-icons-user-profile-avatar-heroes-monochrome.png"
+          />
         </div>
         <div class="media-content">
           <p class="title is-4">
@@ -93,12 +95,17 @@
     <div class="card-content" *ngIf="post.isPoll">
       <div class="media">
         <div class="media-left">
-          <figure class="image is-48x48">
-            <img
-              src="https://bulma.io/images/placeholders/96x96.png"
-              alt="Placeholder image"
-            />
-          </figure>
+          <img
+            [src]="post.user.img"
+            alt="Profile picture"
+            *ngIf="post.user.img"
+            class="profile-picture"
+          />
+          <img
+            *ngIf="!post.user.img"
+            class="profile-picture"
+            src="https://e7.pngegg.com/pngimages/103/590/png-clipart-computer-icons-user-profile-avatar-heroes-monochrome.png"
+          />
         </div>
         <div class="media-content">
           <p class="title is-4">

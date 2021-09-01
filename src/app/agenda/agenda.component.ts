@@ -150,6 +150,7 @@ export class AgendaComponent implements OnInit {
   public progress = 0;
   public loading = false;
   public groups: Group[];
+  public groupsAppointment;
   public appointments: Appointment[];
   public groupsDisplayed: [{ text: string; value: string }] = [] as any;
   public setView: View = 'Month';
@@ -173,7 +174,7 @@ export class AgendaComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.user = jwt_decode(sessionStorage.getItem('CurrentUser')) as User;
+    this.user = jwt_decode(localStorage.getItem('CurrentUser')) as User;
   }
 
   getGroups() {

@@ -1,30 +1,46 @@
 <h1 class="title is-4 has-text-centered hello mt-3">
   Bonjour {{ user.firstname }}, voici vos informations
 </h1>
-<form class="box" (ngSubmit)="saveInfos(f)" #f="ngForm">
+
+<div class="lds-roller" *ngIf="imageLoading">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
+
+<form class="box" (ngSubmit)="saveInfos(f)" #f="ngForm" *ngIf="!imageLoading">
   <label class="label hello">Modifier vos informations</label>
   <hr />
   <div class="field mb-5">
-    <label class="label">Photo de profil</label>
-    <img [src]="img" *ngIf="img" class="profile-picture" />
-    <div class="file has-name">
-      <label class="file-label">
-        <input
-          class="file-input"
-          type="file"
-          name="picture"
-          (change)="onFileSelected($event)"
-        />
-        <span class="file-cta">
-          <span class="file-icon">
-            <i class="fas fa-upload"></i>
-          </span>
-          <span class="file-label"> Sélectionnez une photo.. </span>
-        </span>
-        <span class="file-name">
-          {{ fileName || "Pas de fichier sélectionné" }}
-        </span>
-      </label>
+    <div class="pp">
+      <div class="pp-input">
+        <label class="label">Photo de profil</label>
+        <div class="file has-name">
+          <label class="file-label">
+            <input
+              class="file-input"
+              type="file"
+              name="picture"
+              (change)="onFileSelected($event)"
+            />
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="fas fa-upload"></i>
+              </span>
+              <span class="file-label"> Sélectionnez une photo.. </span>
+            </span>
+            <span class="file-name">
+              {{ fileName || "Pas de fichier sélectionné" }}
+            </span>
+          </label>
+        </div>
+      </div>
+      <img [src]="img" *ngIf="img" class="profile-picture" />
     </div>
   </div>
 

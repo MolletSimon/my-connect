@@ -25,6 +25,7 @@
     "@swimlane/ngx-charts": "^17.0.1",
     "@syncfusion/ej2-angular-schedule": "^18.4.49",
     "@syncfusion/ej2-material-theme": "~18.4.48",
+    "browser-image-compression": "^1.0.15",
     "bulma": "^0.9.2",
     "cldr-data": "^36.0.0",
     "jquery": "^3.6.0",

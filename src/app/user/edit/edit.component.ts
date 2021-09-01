@@ -8,6 +8,7 @@ import sign from 'jwt-encode';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { TimelineMonthService } from '@syncfusion/ej2-angular-schedule';
+import imageCompression from 'browser-image-compression';
 
 @Component({
   selector: 'app-edit',
@@ -19,6 +20,7 @@ export class EditComponent implements OnInit {
   public userUpdated: User;
   public file: File;
   public img: any;
+  imageLoading = false;
   reader = new FileReader();
   fileName = '';
 
@@ -49,26 +51,30 @@ export class EditComponent implements OnInit {
 
   onFileSelected(event) {
     const file: File = event.target.files[0];
-    this.reader.readAsBinaryString(file);
+    this.imageLoading = true;
+    imageCompression(file, { maxSizeMB: 3 }).then((file) => {
+      this.reader.readAsBinaryString(file);
 
-    this.reader.onload = () => {
-      this._usersService
-        .uploadPicture(btoa(<string>this.reader.result), this.user)
-        .subscribe(
-          (result) => {
-            this._toastr.success('Photo publiée');
-            this.getPicture();
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-    };
+      this.reader.onload = () => {
+        this._usersService
+          .uploadPicture(btoa(<string>this.reader.result), this.user)
+          .subscribe(
+            (result) => {
+              this._toastr.success('Photo publiée');
+              this.imageLoading = false;
+              this.getPicture();
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+      };
 
-    if (file) {
-      this.fileName = file.name;
-      this.file = file;
-    }
+      if (file) {
+        this.fileName = file.name;
+        this.file = file;
+      }
+    });
   }
 
   saveInfos(f: NgForm) {

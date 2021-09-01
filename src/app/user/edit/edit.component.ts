@@ -3,15 +3,16 @@ import { ToastrService } from 'ngx-toastr';
 import { UsersService } from './../../services/users.service';
 import { User } from './../../model/user';
 import { Component, OnInit } from '@angular/core';
-import jwt_decode from "jwt-decode";
-import sign from "jwt-encode";
+import jwt_decode from 'jwt-decode';
+import sign from 'jwt-encode';
 import { NgForm } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { TimelineMonthService } from '@syncfusion/ej2-angular-schedule';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss']
+  styleUrls: ['./edit.component.scss'],
 })
 export class EditComponent implements OnInit {
   public user: User;
@@ -26,76 +27,86 @@ export class EditComponent implements OnInit {
     private _toastr: ToastrService,
     private _authService: AuthService,
     private _domSanitizer: DomSanitizer
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getUser();
     this.getPicture();
-    console.log(this.user)
+    console.log(this.user);
   }
 
   getUser() {
-    this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
+    this.user = jwt_decode(sessionStorage.getItem('CurrentUser')) as User;
   }
 
   getPicture() {
-    this._usersService.getPicture(this.user).subscribe(picture => {
-      this.img = 'data:image/jpeg;base64, ' + picture[0].img.data.toString('base64');
-      console.log(this.img)
+    this._usersService.getPicture(this.user).subscribe((picture) => {
+      this.img = this._domSanitizer.bypassSecurityTrustResourceUrl(
+        `data:image/png;base64, ${picture[0].img}`
+      );
     });
   }
 
-  getImage() {
-    return this._domSanitizer.bypassSecurityTrustUrl(this.img)
-  }
-
   onFileSelected(event) {
-    const file:File = event.target.files[0];
-    this.reader.readAsDataURL(file);
+    const file: File = event.target.files[0];
+    this.reader.readAsBinaryString(file);
 
     this.reader.onload = () => {
-      this._usersService.uploadPicture(this.reader.result, this.user)
-        .subscribe(result => {
-          this._toastr.success("Photo publiée")
-        }, err => {
-          console.log(err)
-        })
+      this._usersService
+        .uploadPicture(btoa(<string>this.reader.result), this.user)
+        .subscribe(
+          (result) => {
+            this._toastr.success('Photo publiée');
+            this.getPicture();
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
     };
 
     if (file) {
-        this.fileName = file.name;
-        this.file = file;
+      this.fileName = file.name;
+      this.file = file;
     }
   }
 
   saveInfos(f: NgForm) {
     this.userUpdated = {
-      "_id": this.user._id,
-      "firstname": f.value.firstname ? f.value.firstname : this.user.firstname,
-      "lastname": f.value.lastname ? f.value.lastname : this.user.lastname,
-      "mail": f.value.mail ? f.value.mail : this.user.mail,
-      "phone": f.value.phone ? f.value.phone : this.user.phone,
-    } as User
-    this._usersService.updateUser(this.userUpdated)
-      .subscribe(user => {
-        this._toastr.success("Informations modifiées !");
-        sessionStorage.removeItem("CurrentUser");
+      _id: this.user._id,
+      firstname: f.value.firstname ? f.value.firstname : this.user.firstname,
+      lastname: f.value.lastname ? f.value.lastname : this.user.lastname,
+      mail: f.value.mail ? f.value.mail : this.user.mail,
+      phone: f.value.phone ? f.value.phone : this.user.phone,
+    } as User;
+    this._usersService.updateUser(this.userUpdated).subscribe(
+      (user) => {
+        this._toastr.success('Informations modifiées !');
+        sessionStorage.removeItem('CurrentUser');
         let token = {
-          token: sign(user, 'el-tokenos-my-connect-19283746567-jfzofhouhouz')
-        }
-        sessionStorage.setItem("CurrentUser", JSON.stringify(token));
+          token: sign(user, 'el-tokenos-my-connect-19283746567-jfzofhouhouz'),
+        };
+        sessionStorage.setItem('CurrentUser', JSON.stringify(token));
         this.getUser();
         f.reset();
-      }, err => {
-        this._toastr.error("Oups " + err);
-      })
+      },
+      (err) => {
+        this._toastr.error('Oups ' + err);
+      }
+    );
   }
 
   updatePassword(p: NgForm) {
-    this._authService.login(this.user.mail, p.value.oldPassword)
-      .subscribe(result => {
-        this._authService.updatePassword(p.value.newPassword, this.user._id)
-          .subscribe(user => this._toastr.success("Mot de passe modifié !"), err => this._toastr.error("Oups " + err))
-      }, err => this._toastr.error("Oups ! Mot de passe incorrect ☹️"))
+    this._authService.login(this.user.mail, p.value.oldPassword).subscribe(
+      (result) => {
+        this._authService
+          .updatePassword(p.value.newPassword, this.user._id)
+          .subscribe(
+            (user) => this._toastr.success('Mot de passe modifié !'),
+            (err) => this._toastr.error('Oups ' + err)
+          );
+      },
+      (err) => this._toastr.error('Oups ! Mot de passe incorrect ☹️')
+    );
   }
 }

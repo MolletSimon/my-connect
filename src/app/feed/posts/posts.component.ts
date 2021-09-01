@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { UsersService } from './../../services/users.service';
 import { Post } from './../../model/post';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
@@ -20,6 +21,7 @@ export class PostsComponent implements OnInit {
   @Input() groups: Group[];
   @Input() user: User;
   poll: Poll;
+  users: User[];
   xAxisLabel = 'Réponses';
   yAxisLabel = 'Votants';
   view: any[] = [700, 400];
@@ -30,10 +32,11 @@ export class PostsComponent implements OnInit {
 
   constructor(
     private _feedService: FeedService,
-    private _usersService: UsersService
+    private _usersService: UsersService,
+    private _domSanitizer: DomSanitizer
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.viewMobile();
     this.getPosts();
     this.post.subscribe(() => {
@@ -48,9 +51,41 @@ export class PostsComponent implements OnInit {
       this.checkIfUserVoted();
       this.checkIfUserLiked();
       this.preparePoll();
-      console.log(this.posts);
       this.postsDisplayed = this.posts;
+      this.getUsers();
     });
+  }
+
+  getUsers() {
+    this.postsDisplayed.forEach((post) => {
+      this.getPicture(post.user);
+    });
+    // this._usersService.getUsers().subscribe((users) => {
+    //   users.forEach((user) => {
+    //     this.posts.forEach((post) => {
+    //       if (post.user.id == user._id) {
+    //         user['posted'] = true;
+    //       }
+    //     });
+
+    //     if (user['posted']) {
+    //       this.getPicture(user);
+    //     }
+    //   });
+
+    //   console.log(users);
+    // });
+  }
+
+  getPicture(user) {
+    if (user.id) {
+      user._id = user.id;
+      this._usersService.getPicture(user).subscribe((picture) => {
+        user.img = this._domSanitizer.bypassSecurityTrustResourceUrl(
+          `data:image/png;base64, ${picture[0].img}`
+        );
+      });
+    }
   }
 
   viewMobile() {
@@ -66,7 +101,6 @@ export class PostsComponent implements OnInit {
         this.posts.unshift(post);
       }
     });
-    console.log(this.posts);
   }
 
   preparePoll() {

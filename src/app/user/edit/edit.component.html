@@ -6,7 +6,7 @@
   <hr />
   <div class="field mb-5">
     <label class="label">Photo de profil</label>
-    <img [innerHtml]="getImage" alt="" *ngIf="img" inner />
+    <img [src]="img" *ngIf="img" class="profile-picture" />
     <div class="file has-name">
       <label class="file-label">
         <input

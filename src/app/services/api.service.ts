@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiService {
-  public apiUrl = 'https://api-my-connect.herokuapp.com/';
+  public apiUrl = 'http://localhost:3000/';
   public httpOptions = {
     headers: new HttpHeaders({
       Authorization: `Bearer ${

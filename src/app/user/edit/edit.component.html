@@ -1,87 +1,146 @@
-<h1 class="title is-4 has-text-centered hello mt-3">Bonjour {{user.firstname}}, voici vos informations </h1>
+<h1 class="title is-4 has-text-centered hello mt-3">
+  Bonjour {{ user.firstname }}, voici vos informations
+</h1>
 <form class="box" (ngSubmit)="saveInfos(f)" #f="ngForm">
-    <label class="label hello">Modifier vos informations</label>
-    <hr>
-    <!-- <div class="field mb-5">
-      <label class="label">Photo de profil</label>
-      <div class="file has-name">
-        <label class="file-label">
-          <input class="file-input" type="file" name="picture" (change)="onFileSelected($event)">
-          <span class="file-cta">
-            <span class="file-icon">
-              <i class="fas fa-upload"></i>
-            </span>
-            <span class="file-label">
-              Choose a file…
-            </span>
+  <label class="label hello">Modifier vos informations</label>
+  <hr />
+  <div class="field mb-5">
+    <label class="label">Photo de profil</label>
+    <img [innerHtml]="getImage" alt="" *ngIf="img" inner />
+    <div class="file has-name">
+      <label class="file-label">
+        <input
+          class="file-input"
+          type="file"
+          name="picture"
+          (change)="onFileSelected($event)"
+        />
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
           </span>
-          <span class="file-name">
-            {{fileName || "Pas de fichier sélectionné"}}
-          </span>
-        </label>
-      </div>
-    </div> -->
+          <span class="file-label"> Sélectionnez une photo.. </span>
+        </span>
+        <span class="file-name">
+          {{ fileName || "Pas de fichier sélectionné" }}
+        </span>
+      </label>
+    </div>
+  </div>
 
-    <div class="field mb-5">
-        <label class="label">Nom</label>
-        <div class="control">
-          <input class="input" type="text" placeholder="{{user.lastname}}" ngModel name="lastname">
-        </div>
+  <div class="field mb-5">
+    <label class="label">Nom</label>
+    <div class="control">
+      <input
+        class="input"
+        type="text"
+        placeholder="{{ user.lastname }}"
+        ngModel
+        name="lastname"
+      />
     </div>
+  </div>
 
-    <div class="field mb-5">
-        <label class="label">Prénom</label>
-        <div class="control">
-            <input class="input" type="text" placeholder="{{user.firstname}}" ngModel name="firstname">
-        </div>
+  <div class="field mb-5">
+    <label class="label">Prénom</label>
+    <div class="control">
+      <input
+        class="input"
+        type="text"
+        placeholder="{{ user.firstname }}"
+        ngModel
+        name="firstname"
+      />
     </div>
-    <div class="field mb-5">
-      <label class="label">Email</label>
-      <div class="control">
-        <input class="input" type="email" placeholder="{{user.mail}}" ngModel name="mail">
-      </div>
+  </div>
+  <div class="field mb-5">
+    <label class="label">Email</label>
+    <div class="control">
+      <input
+        class="input"
+        type="email"
+        placeholder="{{ user.mail }}"
+        ngModel
+        name="mail"
+      />
     </div>
+  </div>
 
-    <div class="field mb-5">
-        <label class="label">Téléphone</label>
-        <div class="control">
-          <input class="input" type="tel" placeholder="{{user.phone}}" ngModel name="phone">
-        </div>
+  <div class="field mb-5">
+    <label class="label">Téléphone</label>
+    <div class="control">
+      <input
+        class="input"
+        type="tel"
+        placeholder="{{ user.phone }}"
+        ngModel
+        name="phone"
+      />
     </div>
-  
-    <div class="field is-grouped is-grouped-right">
-        <button class="button is-info" type="submit">Sauvegarder</button>
-    </div>
+  </div>
+
+  <div class="field is-grouped is-grouped-right">
+    <button class="button is-info" type="submit">Sauvegarder</button>
+  </div>
 </form>
 
 <form class="box" (ngSubmit)="updatePassword(p)" #p="ngForm">
-    <label class="label hello">Modifier votre mot de passe</label>
-    <hr>
-    <div class="field mb-5">
-        <label class="label">Ancien mot de passe</label>
-        <div class="control">
-          <input class="input" type="password" placeholder="**********" ngModel name="oldPassword">
-        </div>
+  <label class="label hello">Modifier votre mot de passe</label>
+  <hr />
+  <div class="field mb-5">
+    <label class="label">Ancien mot de passe</label>
+    <div class="control">
+      <input
+        class="input"
+        type="password"
+        placeholder="**********"
+        ngModel
+        name="oldPassword"
+      />
     </div>
+  </div>
 
-    <div class="field mb-5">
-        <label class="label">Nouveau mot de passe</label>
-        <div class="control">
-          <input class="input" type="password" placeholder="**********" ngModel name="newPassword">
-        </div>
+  <div class="field mb-5">
+    <label class="label">Nouveau mot de passe</label>
+    <div class="control">
+      <input
+        class="input"
+        type="password"
+        placeholder="**********"
+        ngModel
+        name="newPassword"
+      />
     </div>
+  </div>
 
-    <div class="field mb-5">
-        <label class="label">Confirmation du mot de passe</label>
-        <div class="control">
-          <input class="input" type="password" placeholder="**********" ngModel name="confirmPassword"
-            [ngClass]="{'is-danger': p.value.newPassword != p.value.confirmPassword}"
-          >
-          <span style="font-style: italic;" *ngIf="p.value.newPassword != p.value.confirmPassword"  class="has-text-danger">Les deux mots de passes doivent être identiques</span>
-        </div>
+  <div class="field mb-5">
+    <label class="label">Confirmation du mot de passe</label>
+    <div class="control">
+      <input
+        class="input"
+        type="password"
+        placeholder="**********"
+        ngModel
+        name="confirmPassword"
+        [ngClass]="{
+          'is-danger': p.value.newPassword != p.value.confirmPassword
+        }"
+      />
+      <span
+        style="font-style: italic"
+        *ngIf="p.value.newPassword != p.value.confirmPassword"
+        class="has-text-danger"
+        >Les deux mots de passes doivent être identiques</span
+      >
     </div>
+  </div>
 
-    <div class="field is-grouped is-grouped-right">
-        <button class="button is-info" [disabled]="p.value.newPassword != p.value.confirmPassword">Sauvegarder</button>
-    </div>
+  <div class="field is-grouped is-grouped-right">
+    <button
+      class="button is-info"
+      [disabled]="p.value.newPassword != p.value.confirmPassword"
+    >
+      Sauvegarder
+    </button>
+  </div>
 </form>

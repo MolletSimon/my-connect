@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import jwt_decode from "jwt-decode";
 import sign from "jwt-encode";
 import { NgForm } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit',
@@ -16,21 +17,36 @@ export class EditComponent implements OnInit {
   public user: User;
   public userUpdated: User;
   public file: File;
+  public img: any;
   reader = new FileReader();
   fileName = '';
 
   constructor(
     private _usersService: UsersService,
     private _toastr: ToastrService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _domSanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.getUser();
+    this.getPicture();
+    console.log(this.user)
   }
 
   getUser() {
     this.user = jwt_decode(sessionStorage.getItem("CurrentUser")) as User;
+  }
+
+  getPicture() {
+    this._usersService.getPicture(this.user).subscribe(picture => {
+      this.img = 'data:image/jpeg;base64, ' + picture[0].img.data.toString('base64');
+      console.log(this.img)
+    });
+  }
+
+  getImage() {
+    return this._domSanitizer.bypassSecurityTrustUrl(this.img)
   }
 
   onFileSelected(event) {

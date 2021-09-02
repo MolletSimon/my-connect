@@ -34,7 +34,6 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     this.getUser();
     this.getPicture();
-    console.log(this.user);
   }
 
   getUser() {

@@ -4,17 +4,12 @@ import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-drive',
   templateUrl: './drive.component.html',
-  styleUrls: ['./drive.component.scss']
+  styleUrls: ['./drive.component.scss'],
 })
 export class DriveComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-  }
-
-  uploadFile(f: NgForm){
-    console.log(f.value.file as File)
-  } 
-
+  uploadFile(f: NgForm) {}
 }

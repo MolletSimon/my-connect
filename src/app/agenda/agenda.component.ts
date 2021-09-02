@@ -302,7 +302,6 @@ export class AgendaComponent implements OnInit {
       } as Group;
     } else {
       appointment.Group = this.groups.find((g) => g._id == appointment.groupId);
-      console.log(appointment);
     }
 
     this.loading = true;

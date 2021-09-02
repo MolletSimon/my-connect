@@ -92,6 +92,36 @@
       </div>
     </div>
 
+    <div class="modal" id="modal-other-persons">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="card">
+          <div class="card-content">
+            <div class="content">
+              <h2>Liste des personnes qui ont aimé le post.</h2>
+              <table class="table is-striped">
+                <tbody>
+                  <tr *ngFor="let user of post.liked">
+                    <td class="is-italic">
+                      {{ user.firstname }}
+                      <span class="is-uppercase has-text-weight-bold"
+                        >{{ user.lastname }}
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        class="modal-close is-large"
+        aria-label="close"
+        (click)="closeModal('modal-other-persons')"
+      ></button>
+    </div>
+
     <div class="card-content" *ngIf="post.isPoll">
       <div class="media">
         <div class="media-left">
@@ -220,30 +250,6 @@
             </span>
           </div>
           <time>{{ post.date | date: "medium" }}</time>
-        </div>
-        <div class="modal" id="modal-other-persons">
-          <div class="modal-background"></div>
-          <div class="modal-content">
-            <div class="card">
-              <div class="card-content">
-                <div class="content">
-                  <h2>Liste des personnes qui ont aimé le post.</h2>
-                  <table class="table is-striped">
-                    <tbody>
-                      <tr *ngFor="let user of post.liked">
-                        <td>{{ user.firstname }} {{ user.lastname }}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button
-            class="modal-close is-large"
-            aria-label="close"
-            (click)="closeModal('modal-other-persons')"
-          ></button>
         </div>
       </div>
     </div>

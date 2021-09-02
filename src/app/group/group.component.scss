@@ -1,7 +1,7 @@
 @import "../styles/main.scss";
 @import "./group.mobile.component.scss";
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 900px) {
     .mobile {
         display: none;
     }

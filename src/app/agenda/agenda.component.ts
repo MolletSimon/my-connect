@@ -269,7 +269,7 @@ export class AgendaComponent implements OnInit {
       args.element.style.backgroundColor = categoryColor;
     }
 
-    if (window.matchMedia('(max-width: 600px)').matches) {
+    if (window.matchMedia('(max-width: 700px)').matches) {
       this.setView = 'Agenda';
     }
   }

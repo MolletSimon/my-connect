@@ -7,6 +7,17 @@ pre {
     white-space: normal !important;
 }
 
+.profile-picture {
+  border-radius: 50%;
+  background-color: rgb(238, 238, 238);
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border: 1px solid rgba(187, 187, 187, 0.363);
+  -webkit-box-shadow: 2px 2px 29px -9px rgba(0, 0, 0, 0.63);
+  box-shadow: 2px 2px 29px -9px rgba(0, 0, 0, 0.63);
+}
+
 .post-content {
     white-space: pre-wrap !important;
 }

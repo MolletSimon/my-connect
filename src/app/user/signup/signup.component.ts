@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './../../services/auth.service';
 import { Router } from '@angular/router';
 import { UsersService } from './../../services/users.service';
@@ -8,7 +9,7 @@ import { User } from 'src/app/model/user';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
   users: User[];
@@ -17,37 +18,39 @@ export class SignupComponent implements OnInit {
   constructor(
     private _usersService: UsersService,
     private _router: Router,
-    private _authService: AuthService
-  ) { }
+    private _authService: AuthService,
+    private _toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.getUsers();
   }
 
   getUsers() {
-    this._usersService.getMails()
-      .subscribe(users => {
-        this.users = users;
-      })
+    this._usersService.getMails().subscribe((users) => {
+      this.users = users;
+    });
   }
 
   saveForm(f: NgForm) {
     this.checkMail(f.value.mail);
-    this._authService.signUp(f.value)
-      .subscribe(() => {
-        this._router.navigate(['login']);
-      });
+    this._authService.signUp(f.value).subscribe(() => {
+      this._toastr.success(
+        'Félicitations ! Votre inscription a bien été prise en compte !',
+        '🥳'
+      );
+      this._router.navigate(['login']);
+    });
   }
 
   checkMail(mail: string) {
-    if(this.users.find(u => u.mail === mail)) {
+    if (this.users.find((u) => u.mail === mail)) {
       this.mailAlreadyExist = true;
       return;
     }
   }
 
   cancel() {
-    this._router.navigate(['login'])
+    this._router.navigate(['login']);
   }
-
 }

@@ -1,5 +1,10 @@
-<app-header *ngIf="userInitialized" ></app-header>
+<app-header *ngIf="userInitialized"></app-header>
 <router-outlet></router-outlet>
 <ng-container *ngIf="userInitialized">
-    <h1 class="title is-italic has-text-centered" *ngIf="user.groups.length == 0" >Aïe ! Vous ne faites partie d'aucun groupe ! Veuillez contacter votre responsable. Si vous avez été ajouté à un groupe, essayez de vous déconnecter et de vous reconnecter</h1>
+  <h1 class="title is-italic has-text-centered" *ngIf="user.groups.length == 0">
+    Aïe ! Vous ne faites partie d'aucun groupe ! Veuillez contacter votre
+    responsable. Si vous avez été ajouté à un groupe, essayez de vous
+    déconnecter et de vous reconnecter
+  </h1>
 </ng-container>
+<app-footer *ngIf="userInitialized"></app-footer>

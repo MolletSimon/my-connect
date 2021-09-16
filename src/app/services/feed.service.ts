@@ -8,69 +8,99 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FeedService {
-  constructor(private _httpService: HttpClient, private _apiService: ApiService) { }
+  constructor(
+    private _httpService: HttpClient,
+    private _apiService: ApiService
+  ) {}
 
   getPosts(user: User): Observable<Post[]> {
     let body = {
-      "ids": [],
-      "isSuperadmin": user.isSuperadmin
+      ids: [],
+      isSuperadmin: user.isSuperadmin,
     };
-    user.groups.forEach(group => {
+    user.groups.forEach((group) => {
       body.ids.push(group._id);
-    })
-    return this._httpService.post<Post[]>(`${this._apiService.apiUrl}post/get`, body, this._apiService.httpOptions)
+    });
+    return this._httpService.post<Post[]>(
+      `${this._apiService.apiUrl}post/get`,
+      body,
+      this._apiService.httpOptions
+    );
   }
 
-  publish(content, user: User, groups: Group[], poll?: Poll, isPoll?): Observable<Post> {
+  removePost(post: Post): Observable<any> {
+    return this._httpService.delete<any>(
+      `${this._apiService.apiUrl}post/remove/${post._id}`,
+      this._apiService.httpOptions
+    );
+  }
+
+  publish(
+    content,
+    user: User,
+    groups: Group[],
+    poll?: Poll,
+    isPoll?
+  ): Observable<Post> {
     let group = [];
-    groups.forEach(g => {
+    groups.forEach((g) => {
       group.push({
-        "_id": g._id,
-        "name": g.name,
-        "color": g.color
-      })
+        _id: g._id,
+        name: g.name,
+        color: g.color,
+      });
     });
 
-    return this._httpService.post<Post>(`${this._apiService.apiUrl}post/publish`, 
+    return this._httpService.post<Post>(
+      `${this._apiService.apiUrl}post/publish`,
       {
-        "content": content, 
-        "date": Date.now(), 
-        "user": {
-          "lastname": user.lastname,
-          "firstname": user.firstname,
-          "id": user._id,
-          "img": user.img,
+        content: content,
+        date: Date.now(),
+        user: {
+          lastname: user.lastname,
+          firstname: user.firstname,
+          id: user._id,
+          img: user.img,
         },
-        "group": group,
-        "isPined": false,
-        "isPoll": isPoll ? isPoll : false,
-        "poll": poll ? poll : {}
-      }, this._apiService.httpOptions
-      )
+        group: group,
+        isPined: false,
+        isPoll: isPoll ? isPoll : false,
+        poll: poll ? poll : {},
+      },
+      this._apiService.httpOptions
+    );
   }
 
   vote(poll: Poll, id: string): Observable<any> {
-    return this._httpService.put<any>(`${this._apiService.apiUrl}post/update/${id}`, 
+    return this._httpService.put<any>(
+      `${this._apiService.apiUrl}post/update/${id}`,
       {
-        "poll": poll
-      }, this._apiService.httpOptions
-      )
+        poll: poll,
+      },
+      this._apiService.httpOptions
+    );
   }
 
   like(post: Post): Observable<any> {
-    return this._httpService.put<any>(`${this._apiService.apiUrl}post/update/${post._id}`, {
-      "liked": post.liked
-    }, this._apiService.httpOptions);
+    return this._httpService.put<any>(
+      `${this._apiService.apiUrl}post/update/${post._id}`,
+      {
+        liked: post.liked,
+      },
+      this._apiService.httpOptions
+    );
   }
 
   pin(post: Post): Observable<any> {
-    return this._httpService.put<any>(`${this._apiService.apiUrl}post/update/${post._id}`, 
+    return this._httpService.put<any>(
+      `${this._apiService.apiUrl}post/update/${post._id}`,
       {
-        "isPined": post.isPined
-      }, this._apiService.httpOptions
-      )
+        isPined: post.isPined,
+      },
+      this._apiService.httpOptions
+    );
   }
 }

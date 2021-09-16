@@ -57,6 +57,14 @@
           >
             <img src="../../../assets/images/pin-icon.png" alt="" />
           </span>
+
+          <span
+            class="icon ml-3 is-clickable"
+            *ngIf="post['user-post']"
+            (click)="openModal('modal-delete-post', post)"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </span>
         </div>
       </div>
 
@@ -81,7 +89,7 @@
               {{ post.liked[0].firstname }} {{ post.liked[0].lastname }} et
               <span
                 style="text-decoration: underline; cursor: pointer"
-                (click)="openModal('modal-other-persons')"
+                (click)="whoLiked('modal-other-persons', post)"
                 >{{ post.liked.length - 1 }} autres personnes</span
               >
               ont aimé ce post.
@@ -94,14 +102,14 @@
 
     <div class="modal" id="modal-other-persons">
       <div class="modal-background"></div>
-      <div class="modal-content">
+      <div class="modal-content" *ngIf="postModal">
         <div class="card">
           <div class="card-content">
             <div class="content">
               <h2>Liste des personnes qui ont aimé le post.</h2>
               <table class="table is-striped">
                 <tbody>
-                  <tr *ngFor="let user of post.liked">
+                  <tr *ngFor="let user of postModal.liked">
                     <td class="is-italic">
                       {{ user.firstname }}
                       <span class="is-uppercase has-text-weight-bold"
@@ -111,6 +119,35 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        class="modal-close is-large"
+        aria-label="close"
+        (click)="closeModal('modal-other-persons')"
+      ></button>
+    </div>
+
+    <div class="modal" id="modal-delete-post">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="card">
+          <div class="card-content">
+            <div class="content">
+              <h2>Êtes-vous sûr de vouloir supprimer ce post ?</h2>
+              <div style="display: flex; justify-content: center">
+                <button
+                  class="button is-danger mr-1"
+                  (click)="closeModal('modal-delete-post')"
+                >
+                  Annuler
+                </button>
+                <button class="button is-success ml-1" (click)="deletePost()">
+                  Confirmer
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -168,6 +205,14 @@
             (click)="unpinPost(post)"
           >
             <img src="../../../assets/images/pin-icon.png" alt="" />
+          </span>
+
+          <span
+            class="icon ml-3 is-clickable"
+            *ngIf="post['user-post']"
+            (click)="openModal('modal-delete-post', post)"
+          >
+            <i class="fas fa-trash-alt"></i>
           </span>
         </div>
       </div>
@@ -243,7 +288,7 @@
               {{ post.liked[0].firstname }} {{ post.liked[0].lastname }} et
               <span
                 style="text-decoration: underline; cursor: pointer"
-                (click)="openModal('modal-other-persons')"
+                (click)="whoLiked('modal-other-persons', post)"
                 >{{ post.liked.length - 1 }} autres personnes</span
               >
               ont aimé ce post.

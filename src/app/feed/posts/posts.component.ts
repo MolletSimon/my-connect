@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UsersService } from './../../services/users.service';
 import { Post } from './../../model/post';
@@ -17,10 +18,12 @@ declare var $: any;
 export class PostsComponent implements OnInit {
   public posts: Post[];
   public postsDisplayed: Post[];
+  public postModal: Post;
   @Input() post: Subject<any>;
   @Input() groups: Group[];
   @Input() user: User;
   poll: Poll;
+  postToDelete: Post;
   users: User[];
   xAxisLabel = 'Réponses';
   yAxisLabel = 'Votants';
@@ -33,7 +36,8 @@ export class PostsComponent implements OnInit {
   constructor(
     private _feedService: FeedService,
     private _usersService: UsersService,
-    private _domSanitizer: DomSanitizer
+    private _domSanitizer: DomSanitizer,
+    private _toastr: ToastrService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -52,6 +56,12 @@ export class PostsComponent implements OnInit {
       this.checkIfUserLiked();
       this.preparePoll();
       this.postsDisplayed = this.posts;
+      this.postsDisplayed.forEach((post) => {
+        post['user-post'] = false;
+        if (post.user.id == this.user._id) {
+          post['user-post'] = true;
+        }
+      });
       this.getUsers();
     });
   }
@@ -60,21 +70,6 @@ export class PostsComponent implements OnInit {
     this.postsDisplayed.forEach((post) => {
       this.getPicture(post.user);
     });
-    // this._usersService.getUsers().subscribe((users) => {
-    //   users.forEach((user) => {
-    //     this.posts.forEach((post) => {
-    //       if (post.user.id == user._id) {
-    //         user['posted'] = true;
-    //       }
-    //     });
-
-    //     if (user['posted']) {
-    //       this.getPicture(user);
-    //     }
-    //   });
-
-    //   console.log(users);
-    // });
   }
 
   getPicture(user) {
@@ -194,8 +189,26 @@ export class PostsComponent implements OnInit {
     });
   }
 
-  openModal(id: string) {
+  deletePost() {
+    if (this.postToDelete) {
+      this._feedService.removePost(this.postToDelete).subscribe(() => {
+        this._toastr.error('Post supprimé !');
+        this.getPosts();
+        this.postToDelete = {} as Post;
+      });
+    }
+  }
+
+  whoLiked(id: string, post: Post) {
+    this.postModal = post;
+    this.openModal(id);
+  }
+
+  openModal(id: string, prop?) {
     document.getElementById(id).classList.add('is-active');
+    if (prop) {
+      this.postToDelete = prop;
+    }
   }
 
   closeModal(id: string) {

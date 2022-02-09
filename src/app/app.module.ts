@@ -22,7 +22,7 @@ registerLocaleData(localeFr);
     HeaderComponent,
     LoginComponent,
     EditComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,9 +31,9 @@ registerLocaleData(localeFr);
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
-  providers: [{ provide: LOCALE_ID, useValue: "fr-FR" }],
-  bootstrap: [AppComponent]
+  providers: [{ provide: LOCALE_ID, useValue: 'fr-FR' }],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

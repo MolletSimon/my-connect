@@ -61,6 +61,8 @@ export class FeedComponent implements OnInit {
   savePoll() {
     if (!this.checkPoll()) return;
 
+    this.orderAnswersPoll();
+
     this._feedService
       .publish('', this.user, this.groupsSelected, this.poll, true)
       .subscribe((result) => {
@@ -69,6 +71,14 @@ export class FeedComponent implements OnInit {
         this.groupsSelected = [];
         this._toastr.info('Sondage publié !');
       });
+  }
+
+  orderAnswersPoll() {
+    let i = 1;
+    this.poll.answers.forEach((ans) => {
+      ans.id = i;
+      i++;
+    });
   }
 
   checkPoll() {
@@ -172,10 +182,9 @@ export class FeedComponent implements OnInit {
     this.poll.answers.push({
       name: '',
       nbVote: 0,
-      id: this.i,
+      id: this.poll.answers.length + 1,
       usersWhoVoted: [],
     });
-    this.i++;
   }
 
   deleteChoice(id) {

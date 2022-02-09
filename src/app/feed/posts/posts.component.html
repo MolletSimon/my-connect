@@ -45,6 +45,21 @@
         <div class="media-right">
           <span
             class="icon ml-3 is-clickable"
+            *ngIf="post['user-post']"
+            (click)="openModal('modal-delete-post', post)"
+          >
+            <i class="fas fa-pen"></i>
+          </span>
+          <span
+            class="icon ml-3 is-clickable"
+            *ngIf="post['user-post']"
+            (click)="openModal('modal-delete-post', post)"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </span>
+
+          <span
+            class="icon ml-3 is-clickable"
             *ngIf="!post.isPined"
             (click)="pinPost(post)"
           >
@@ -56,14 +71,6 @@
             (click)="unpinPost(post)"
           >
             <img src="../../../assets/images/pin-icon.png" alt="" />
-          </span>
-
-          <span
-            class="icon ml-3 is-clickable"
-            *ngIf="post['user-post']"
-            (click)="openModal('modal-delete-post', post)"
-          >
-            <i class="fas fa-trash-alt"></i>
           </span>
         </div>
       </div>
@@ -259,7 +266,7 @@
                 (select)="onSelect($event)">
                 <ng-template #tooltipTemplate let-model="model">
                   <h1>
-                    Nombre de votes : {{ model.value }}
+                    Nombre de votes : {{ model.value }} 
                   </h1>
                   <div class="user-who-voted" *ngFor="let user of post.poll.answers[model.extra.id - 1].usersWhoVoted" >
                     {{user.firstname}} {{user.lastname}} a voté pour cette option

@@ -1,5 +1,11 @@
 ### My Econnect
 
+### 1.0.3
+
+## Features
+
+- Ajout des règles de confidentialité
+
 ### 1.0.2
 
 ## Features

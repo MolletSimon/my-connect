@@ -4,6 +4,7 @@ import { FeedComponent } from './feed/feed.component';
 import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'feed', pathMatch: 'full' },
@@ -21,6 +22,10 @@ const routes: Routes = [
     path: 'agenda',
     loadChildren: () =>
       import('./agenda/agenda.module').then((m) => m.AgendaModule),
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent
   },
   {
     path: 'drive',
